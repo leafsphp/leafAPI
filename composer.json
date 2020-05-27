@@ -1,0 +1,43 @@
+{
+    "name": "leafs/api",
+    "description": "Leaf is a PHP micro framework that helps you create clean, simple but powerful web apps and APIs quickly.",
+    "type": "library",
+    "keywords": [
+        "framework",
+        "leaf",
+        "leafPHP",
+        "mvc",
+        "leaf api"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Darko",
+            "email": "mickdd22@gmail.com",
+            "homepage": "https://mychi.netlify.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "doctrine/dbal": "^2.9",
+        "illuminate/console": "^6.3",
+        "leafs/leaf": "2.1.0-alpha",
+        "psy/psysh": "^0.9.9",
+        "symfony/console": "^4.3",
+        "vlucas/phpdotenv": "^3.6"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "^1.4",
+        "deployer/deployer": "^6.4"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": false
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php -r \"unlink('README.MD'); rename('README2.MD', 'README.MD');\""
+        ]
+    }
+}

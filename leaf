@@ -1,0 +1,63 @@
+<?php
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader
+| for our application. We just need to utilize it! We'll require it
+| into the script here so that we do not have to worry about the
+| loading of any our classes "manually". Feels great to relax.
+|
+*/
+require __DIR__.'/vendor/autoload.php';
+
+/*
+|--------------------------------------------------------------------------
+| Register The Leaf Command Auto Loader
+|--------------------------------------------------------------------------
+|
+| Require all the files containing the Leaf Commands
+|
+*/
+require __DIR__.'/config/bootstrap.php';
+
+/*
+|--------------------------------------------------------------------------
+| Bring in (env)
+|--------------------------------------------------------------------------
+|
+| Quickly use our environment variables
+|
+*/
+\Dotenv\Dotenv::create(__DIR__)->load();
+
+/*
+|--------------------------------------------------------------------------
+| Initialise Leaf CMD
+|--------------------------------------------------------------------------
+|
+| Initialise pre-defined console commands
+|
+*/
+$console = new \Config\Console;
+
+/*
+|--------------------------------------------------------------------------
+| Add custom command
+|--------------------------------------------------------------------------
+|
+| If you have a new command to add to Leaf
+|
+*/
+$console->registerCustom(new \App\Console\ExampleCommand());
+
+/*
+|--------------------------------------------------------------------------
+| Run The console Application
+|--------------------------------------------------------------------------
+|
+| Transport water and dissolved substances to the rest of Leaf😂
+|
+*/
+$console->run();
