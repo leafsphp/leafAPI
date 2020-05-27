@@ -6,9 +6,9 @@
     <br><br><br>
 </p>
 
-[![Latest Stable Version](https://poser.pugx.org/leafs/api/v/stable)](https://packagist.org/packages/leafs/api)
+<!-- [![Latest Stable Version](https://poser.pugx.org/leafs/api/v/stable)](https://packagist.org/packages/leafs/api)
 [![Total Downloads](https://poser.pugx.org/leafs/api/downloads)](https://packagist.org/packages/leafs/api)
-[![License](https://poser.pugx.org/leafs/api/license)](https://packagist.org/packages/leafs/api)
+[![License](https://poser.pugx.org/leafs/api/license)](https://packagist.org/packages/leafs/api) -->
 
 # Leaf API
 
