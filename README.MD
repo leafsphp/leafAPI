@@ -1,7 +1,7 @@
 <p align="center">
     <br><br>
     <img src="https://leaf-docs.netlify.app/images/logo.png" height="100"/>
-    <h1 align="center">Leaf API : re</h1>
+    <h1 align="center">Leaf API : reboot</h1>
     <br>
     <br><br><br>
 </p>

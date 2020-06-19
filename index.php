@@ -20,7 +20,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 | Require all Leaf's Files
 |
 */
-require __DIR__. "/config/bootstrap.php";
+require __DIR__. "/Config/bootstrap.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +31,30 @@ require __DIR__. "/config/bootstrap.php";
 |
 */
 $app = new Leaf\App;
+
+/*
+|--------------------------------------------------------------------------
+| Default fix for CORS
+|--------------------------------------------------------------------------
+|
+| This just prevents the connection client from throwing
+| CORS errors at you. You can delete or make them more specific.
+|
+*/
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+
+/*
+|--------------------------------------------------------------------------
+| Initialise Shortcut Functions
+|--------------------------------------------------------------------------
+|
+| Simple functions you can call from anywhere in your application.
+| This is not a core feature, you can remove it and your app would still
+| work fine.
+|
+*/
+require __DIR__ . "/Config/functions.php";
 
 /*
 |--------------------------------------------------------------------------
