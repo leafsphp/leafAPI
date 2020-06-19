@@ -20,3 +20,8 @@ function render(string $view, array $data = [], array $mergeData = []) {
 	global $app;
 	$app->response->renderMarkup(View($view, $data, $mergeData));
 }
+
+function respond($data) {
+	global $app;
+	$app->response->respond($data);
+}
