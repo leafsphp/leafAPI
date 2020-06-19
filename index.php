@@ -46,6 +46,18 @@ header("Access-Control-Allow-Headers: *");
 
 /*
 |--------------------------------------------------------------------------
+| Initialise Shortcut Functions
+|--------------------------------------------------------------------------
+|
+| Simple functions you can call from anywhere in your application.
+| This is not a core feature, you can remove it and your app would still
+| work fine.
+|
+*/
+require __DIR__ . "/Config/functions.php";
+
+/*
+|--------------------------------------------------------------------------
 | Route Config
 |--------------------------------------------------------------------------
 |
