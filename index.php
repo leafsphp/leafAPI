@@ -43,6 +43,8 @@ $app = new Leaf\App;
 */
 $app->response->cors();
 
+Config\App::error_debug(false);
+
 /*
 |--------------------------------------------------------------------------
 | Initialise Shortcut Functions
