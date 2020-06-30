@@ -41,8 +41,7 @@ $app = new Leaf\App;
 | CORS errors at you. You can delete or make them more specific.
 |
 */
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: *");
+$app->response->cors();
 
 /*
 |--------------------------------------------------------------------------

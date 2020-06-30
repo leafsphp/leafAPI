@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d546c45c65f5daa973bb788d3510f67",
+    "content-hash": "5f4a50ca5e6497c3065aa3e71dba5978",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -924,16 +924,16 @@
         },
         {
             "name": "leafs/leaf",
-            "version": "v2.1.0-alpha",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafsphp/leaf.git",
-                "reference": "3be657b31c241f4bd0ab5fff5ddcc870f23f50fc"
+                "reference": "775f76eb0ce502701757034bb7149d10e7a39f3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafsphp/leaf/zipball/3be657b31c241f4bd0ab5fff5ddcc870f23f50fc",
-                "reference": "3be657b31c241f4bd0ab5fff5ddcc870f23f50fc",
+                "url": "https://api.github.com/repos/leafsphp/leaf/zipball/775f76eb0ce502701757034bb7149d10e7a39f3d",
+                "reference": "775f76eb0ce502701757034bb7149d10e7a39f3d",
                 "shasum": ""
             },
             "require": {
@@ -977,7 +977,7 @@
                 "rest",
                 "router"
             ],
-            "time": "2020-05-24T15:07:20+00:00"
+            "time": "2020-06-21T23:48:02+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -2578,9 +2578,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "leafs/leaf": 15
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
