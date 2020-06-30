@@ -7,7 +7,7 @@ class Console {
 	private $app;
 
 	public function __construct() {
-		$this->app = new Application("Leaf API Framework v1.0.1");
+		$this->app = new Application("Leaf API Framework v1.1.0");
 
 		// Random Commands
 		$this->app->add(new \Config\Command\ServerCommand());
