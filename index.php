@@ -17,7 +17,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 | Register The Leaf Auto Loader
 |--------------------------------------------------------------------------
 |
-| Require all Leaf's Files
+| Require all Leaf API's Files
 |
 */
 require __DIR__. "/Config/bootstrap.php";
@@ -38,12 +38,21 @@ $app = new Leaf\App;
 |--------------------------------------------------------------------------
 |
 | This just prevents the connection client from throwing
-| CORS errors at you. You can delete or make them more specific.
+| CORS errors at you.
 |
 */
 $app->response->cors();
 
-Config\App::error_debug(false);
+/*
+|--------------------------------------------------------------------------
+| Error Configuration
+|--------------------------------------------------------------------------
+|
+| Show or hide errors  for easy debugging
+| You might want to set this to false for production
+|
+*/
+Config\App::error_debug(true);
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +71,7 @@ require __DIR__ . "/Config/functions.php";
 | Route Config
 |--------------------------------------------------------------------------
 |
-| Require app routes
+| Require app routes.
 |
 */
 require __DIR__. "/App/Routes.php";
