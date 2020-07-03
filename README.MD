@@ -19,7 +19,7 @@ Leaf API is a minimal MVC wrapper built on top of Leaf PHP which allows you to b
 It's recommended that you use [Composer](https://getcomposer.org/) to install Leaf.
 
 ```bash
-composer create project leafs/api <project-name>
+composer create-project leafs/api <project-name>
 ```
 
 This will start a new Leaf api project.
@@ -37,16 +37,7 @@ C:.
 │   │   └───Seeds
 │   ├───Helpers
 │   ├───Models
-│   ├───routes
 │   └───Views
-│       ├───assets
-│       │   ├───css
-│       │   ├───images
-│       │   ├───js
-│       │   └───sass
-│       ├───components
-│       └───pages
-│           └───errors
 ├───Config
 │   └───Command
 ├───Lib
@@ -68,16 +59,16 @@ To run your Leaf api application, use
 php leaf serve
 ```
 
-## Learning LeafMVC
+## Learning LeafAPI
 
-LeafMVC has a very easy to understand [documentation](https://leafmvc.netlify.app/) which contains information on all operations in LeafMVC.
+LeafAPI has a very easy to understand [documentation](https://leafphp.netlify.app/#/leaf-api/) which contains information on all operations in LeafAPI.
 
-Since LeafMVC runs on Leaf, you can check out the Leaf PHP Framework documentation [here](https://leaf-docs.netlify.app).
+Since LeafAPI runs on Leaf, you can check out the Leaf PHP Framework documentation [here](https://leafphp.netlify.app).
 
 ## License
 
-The LeafMVC framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The LeafAPI framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## View LeafMVC's docs [here](https://leafmvc.netlify.com/)
+## View LeafAPI's docs [here](https://leafphp.netlify.app/#/leaf-api/)
 
-## View Leaf's docs [here](https://leaf-docs.netlify.com/)
+## View Leaf's docs [here](https://leafphp.netlify.app)
