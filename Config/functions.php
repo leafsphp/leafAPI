@@ -9,15 +9,31 @@ function d() {
 }
 
 function dbRow($row, $columns = "*") {
+	app()->db->auto_connect();
 	return app()->db->select($row, $columns)->fetchAll();
-}
-
-function markup($data) {
-	app()->response->renderMarkup($data);
 }
 
 function fs() {
 	return app()->fs;
+}
+
+function email(array $email) {
+	$mail = new \Leaf\Mail;
+	if (getenv("MAIL_DRIVER") === "smtp") {
+		$mail->smtp_connect(
+			getenv("MAIL_HOST"),
+			getenv("MAIL_PORT"),
+			!getenv("MAIL_USERNAME") ? false : true,
+			getenv("MAIL_USERNAME") ?? null,
+			getenv("MAIL_PASSWORD") ?? null,
+			getenv("MAIL_ENCRYPTION") ?? "STARTTLS"
+		);
+	}
+	$mail->write($email)->send();
+}
+
+function markup($data) {
+	app()->response->renderMarkup($data);
 }
 
 function render(string $view, array $data = [], array $mergeData = []) {
