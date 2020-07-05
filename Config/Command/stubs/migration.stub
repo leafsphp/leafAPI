@@ -4,10 +4,6 @@ namespace App\Database\Migrations;
 use Leaf\Database;
 
 class ClassName extends Database {
-    public function __construct() {
-        parent::__construct();
-    }
-    
     /**
      * Run the migrations.
      *
@@ -21,7 +17,7 @@ class ClassName extends Database {
             });
         endif;
     }
-    
+
     /**
      * Reverse the migrations.
      *
