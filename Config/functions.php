@@ -8,8 +8,12 @@ function d() {
 	return app()->date;
 }
 
+function markup($data) {
+	app()->response->renderMarkup($data);
+}
+
 function render(string $view, array $data = [], array $mergeData = []) {
-	app()->response->renderMarkup(view($view, $data, $mergeData));
+	markup(view($view, $data, $mergeData));
 }
 
 function respond($data) {
@@ -24,8 +28,16 @@ function Route($methods, $pattern, $fn) {
 	app()->match($methods, $pattern, $fn);
 }
 
-function session() {
-	return app()->session;
+function SessionBody() {
+	return app()->session->body();
+}
+
+function SessionGet($param) {
+	return app()->session->get($param);
+}
+
+function SessionSet($data, $value = null) {
+	return app()->session->set($data, $value);
 }
 
 function view(string $view, array $data = [], array $mergeData = []) {
