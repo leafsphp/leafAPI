@@ -8,8 +8,8 @@
 | Create a handler for 404 errors
 |
 */
-$app->set404(function () use ($app) {
-	$app->response->respondWithCode([
+$app->set404(function () {
+	respondWithCode([
 		"data" => "Resource not found",
 	], 404);
 });
@@ -25,6 +25,6 @@ $app->set404(function () use ($app) {
 */
 $app->setNamespace("\App\Controllers");
 
-$app->get("/", function() {
-	respond(requestData("data"));
+$app->get("/", function () {
+	respondWithCode("Congrats!! You're on Leaf API", 200);
 });
