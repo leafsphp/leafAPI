@@ -28,3 +28,7 @@ $app->setNamespace("\App\Controllers");
 $app->get("/", function () {
 	respondWithCode("Congrats!! You're on Leaf API", 200);
 });
+
+// From v1.1, you can use this Route method anywhere in your app
+// This links to the login method of the UsersController
+Route("POST", "/login", "UsersController@login");
