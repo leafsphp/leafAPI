@@ -57,6 +57,7 @@ class GenerateControllerCommand extends Command
                     $fileContent = file_get_contents(__DIR__ . '/stubs/apiController.stub');
                 } else {
                     $fileContent = file_get_contents(__DIR__ . '/stubs/resourceController.stub');
+                    $fileContent = str_replace(["ModelName"], [Str::singular(Str::studly(str_replace("Controller", "", $controller)))], $fileContent);
                 }
             } else {
                 $fileContent = file_get_contents(__DIR__ . '/stubs/controller.stub');
