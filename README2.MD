@@ -1,20 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This README would normally document whatever steps are necessary to get the application up and running.
 
 Things you may want to cover:
 
-* App Info
+## App Info
 
-* Installation
+## Installation
 
-* System dependencies
+## System dependencies
 
-* Configuration
+## Configuration
 
-* Database creation
+## Database creation
 
-* Database initialization
+## Database initialization
 
-* Deployment instructions
+## Deployment instructions
