@@ -20,8 +20,8 @@ class GenerateTemplateCommand extends Command
     protected function configure()
     {
         $this 
-            ->setDescription("Create a new vein template")
-            ->setHelp("Create a new vein template")
+            ->setDescription("Create a new blade template")
+            ->setHelp("Create a new blade template")
             ->addArgument("template", InputArgument::REQUIRED, 'template name');
     }
 
@@ -29,7 +29,7 @@ class GenerateTemplateCommand extends Command
     {
         $template = $input->getArgument("template");
 
-        $file = $this->templatePath . $template . '.vein.php';
+        $file = $this->templatePath . $template . '.blade.php';
 
         touch($file);
 

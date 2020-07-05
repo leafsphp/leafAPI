@@ -27,7 +27,7 @@ class GenerateControllerCommand extends Command
             ->setDescription("Create a new controller class")
             ->setHelp("Create a new controller class")
             ->addArgument("controller", InputArgument::REQUIRED, 'controller name')
-            ->addOption("all", "a", InputOption::VALUE_NONE, 'Create a model, migration and template for controller')
+            ->addOption("all", "a", InputOption::VALUE_NONE, 'Create a model and migration for controller')
             ->addOption("template", "t", InputOption::VALUE_NONE, 'Create a template for controller')
             ->addOption("view", null, InputOption::VALUE_NONE, 'Create a template for controller')
             ->addOption("model", "m", InputOption::VALUE_NONE, 'Create a model for controller')
@@ -65,14 +65,11 @@ class GenerateControllerCommand extends Command
             if ($input->getOption('all')) {
                 $process = new Process("php leaf g:model ".Str::studly(str_replace("Controller", "", $controller))." -m");
                 $process->run();
-                $output->writeln("Model ".Str::studly(str_replace("Controller", "", $controller))." generated successfully");
-                $process = new Process("php leaf g:template ".Str::lower(str_replace("Controller", "", $controller)));
-                $process->run();
-                $output->writeln(Str::lower(str_replace("Controller", "", $controller)).".blade.php generated successfully");
+                $output->writeln(Str::singular(Str::studly(str_replace("Controller", "", $controller)))." model generated successfully with migration");
             } elseif ($input->getOption('model')) {
                 $process = new Process("php leaf g:model ".Str::studly(str_replace("Controller", "", $controller)));
                 $process->run();
-                $output->writeln("Model ".Str::studly(str_replace("Controller", "", $controller))." generated successfully");
+                $output->writeln(Str::singular(Str::studly(str_replace("Controller", "", $controller))) . " model generated successfully");
             } elseif ($input->getOption('template') || $input->getOption('view')) {
                 $process = new Process("php leaf g:template ".Str::lower(str_replace("Controller", "", $controller)));
                 $process->run();
