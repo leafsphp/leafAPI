@@ -8,9 +8,9 @@ function d() {
 	return app()->date;
 }
 
-function dbRow($row, $columns = "*") {
+function dbRow($table, $row_id, $columns = "*") {
 	app()->db->auto_connect();
-	return app()->db->select($row, $columns)->fetchAll();
+	return app()->db->select($table, $columns)->where("id", $row_id)->fetchAll();
 }
 
 function fs() {
@@ -34,6 +34,10 @@ function email(array $email) {
 
 function markup($data) {
 	app()->response->renderMarkup($data);
+}
+
+function plural($value, $count = 2) {
+	return Leaf\Str::plural($value, $count);
 }
 
 function render(string $view, array $data = [], array $mergeData = []) {
@@ -70,6 +74,10 @@ function sessionGet($param) {
 
 function sessionSet($data, $value = null) {
 	return app()->session->set($data, $value);
+}
+
+function singular($value) {
+	return Leaf\Str::singular($value);
 }
 
 function throwErr($error, int $code = 500, bool $use_message = false) {
