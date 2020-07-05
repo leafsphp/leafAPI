@@ -1,27 +1,34 @@
 <?php
-
-function Route($methods, $pattern, $fn) {
-	global $app;
-	$app->match($methods, $pattern, $fn);
-}
-
-function App() {
+function app() {
 	global $app;
 	return $app;
 }
 
-function View(string $view, array $data = [], array $mergeData = []) {
-	global $app;
-	$app->blade->configure(views_path(), storage_path("framework/views"));
-	return $app->blade->render($view, $data, $mergeData);
+function d() {
+	return app()->date;
 }
 
 function render(string $view, array $data = [], array $mergeData = []) {
-	global $app;
-	$app->response->renderMarkup(View($view, $data, $mergeData));
+	app()->response->renderMarkup(view($view, $data, $mergeData));
 }
 
 function respond($data) {
-	global $app;
-	$app->response->respond($data);
+	app()->response->respond($data);
+}
+
+function respondWithCode($data, $code = 500) {
+	app()->response->respondWithCode($data, $code);
+}
+
+function Route($methods, $pattern, $fn) {
+	app()->match($methods, $pattern, $fn);
+}
+
+function session() {
+	return app()->session;
+}
+
+function view(string $view, array $data = [], array $mergeData = []) {
+	app()->blade->configure(views_path(), storage_path("framework/views"));
+	return app()->blade->render($view, $data, $mergeData);
 }
