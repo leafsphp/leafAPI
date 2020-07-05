@@ -26,7 +26,5 @@ $app->set404(function () use ($app) {
 $app->setNamespace("\App\Controllers");
 
 $app->get("/", function() {
-	SessionSet("name", "Mychi");
-	// respondWithCode("Congrats!! You're on Leaf API", 200);
-	respond(SessionBody());
+	respond(requestBody());
 });

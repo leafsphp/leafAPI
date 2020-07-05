@@ -16,6 +16,14 @@ function render(string $view, array $data = [], array $mergeData = []) {
 	markup(view($view, $data, $mergeData));
 }
 
+function requestBody() {
+	return app()->request->body();
+}
+
+function requestData($param) {
+	return app()->request->get($param);
+}
+
 function respond($data) {
 	app()->response->respond($data);
 }
@@ -28,15 +36,15 @@ function Route($methods, $pattern, $fn) {
 	app()->match($methods, $pattern, $fn);
 }
 
-function SessionBody() {
+function sessionBody() {
 	return app()->session->body();
 }
 
-function SessionGet($param) {
+function sessionGet($param) {
 	return app()->session->get($param);
 }
 
-function SessionSet($data, $value = null) {
+function sessionSet($data, $value = null) {
 	return app()->session->set($data, $value);
 }
 
