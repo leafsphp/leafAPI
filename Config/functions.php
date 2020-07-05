@@ -8,8 +8,16 @@ function d() {
 	return app()->date;
 }
 
+function dbRow($row, $columns = "*") {
+	return app()->db->select($row, $columns)->fetchAll();
+}
+
 function markup($data) {
 	app()->response->renderMarkup($data);
+}
+
+function fs() {
+	return app()->fs;
 }
 
 function render(string $view, array $data = [], array $mergeData = []) {

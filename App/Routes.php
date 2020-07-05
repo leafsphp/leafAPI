@@ -26,5 +26,5 @@ $app->set404(function () use ($app) {
 $app->setNamespace("\App\Controllers");
 
 $app->get("/", function() {
-	respond(requestBody());
+	respond(requestData("data"));
 });
