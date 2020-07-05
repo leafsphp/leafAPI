@@ -72,6 +72,10 @@ function sessionSet($data, $value = null) {
 	return app()->session->set($data, $value);
 }
 
+function throwErr($error, int $code = 500, bool $use_message = false) {
+	app()->response->throwErr($error, $code, $use_message);
+}
+
 function view(string $view, array $data = [], array $mergeData = []) {
 	app()->blade->configure(views_path(), storage_path("framework/views"));
 	return app()->blade->render($view, $data, $mergeData);
