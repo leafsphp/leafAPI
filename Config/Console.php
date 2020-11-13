@@ -19,6 +19,7 @@ class Console {
 		$this->app->add(new \Config\Command\GenerateModelCommand());
 		$this->app->add(new \Config\Command\GenerateHelperCommand());
 		$this->app->add(new \Config\Command\GenerateControllerCommand());
+		$this->app->add(new \Config\Command\GenerateSeedCommand());
 
 		// Delete Commands
 		$this->app->add(new \Config\Command\DeleteModelCommand());
