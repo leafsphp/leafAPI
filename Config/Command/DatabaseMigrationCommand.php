@@ -8,8 +8,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Support\Str;
 
-class DatabaseMigrationCommand extends Command {
-    
+class DatabaseMigrationCommand extends Command
+{
     protected static $defaultName = "db:migrate";
     
     public function __construct() {

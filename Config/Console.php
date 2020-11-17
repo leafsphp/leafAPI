@@ -6,8 +6,9 @@ use Symfony\Component\Console\Application;
 class Console {
 	private $app;
 
-	public function __construct() {
-		$this->app = new Application("Leaf API Framework v1.1.0");
+	public function __construct()
+	{
+		$this->app = new Application("<comment>Leaf API <info>v2.0</info></comment>");
 
 		// Random Commands
 		$this->app->add(new \Config\Command\ServerCommand());
@@ -27,6 +28,7 @@ class Console {
 		$this->app->add(new \Config\Command\DeleteControllerCommand());
 
 		// Database Commands
+		$this->app->add(new \Config\Command\DatabaseInstallCommand());
 		$this->app->add(new \Config\Command\DatabaseMigrationCommand());
 		$this->app->add(new \Config\Command\DatabaseRollbackCommand());
 		$this->app->add(new \Config\Command\DatabaseSeedCommand());

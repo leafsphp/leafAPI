@@ -35,7 +35,7 @@ require __DIR__.'/Config/bootstrap.php';
 
 /*
 |--------------------------------------------------------------------------
-| Initialise Leaf CMD
+| Initialise Leaf Console
 |--------------------------------------------------------------------------
 |
 | Initialise pre-defined console commands
@@ -51,7 +51,7 @@ $console = new \Config\Console;
 | If you have a new command to add to Leaf
 |
 */
-$console->registerCustom(new \App\Console\ExampleCommand());
+$console->registerCustom(\App\Console\ExampleCommand::class);
 
 /*
 |--------------------------------------------------------------------------

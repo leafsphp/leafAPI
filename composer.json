@@ -14,8 +14,8 @@
         {
             "name": "Michael Darko",
             "email": "mickdd22@gmail.com",
-            "homepage": "https://mychi.netlify.com",
-            "role": "Developer"
+            "homepage": "https://mychi.netlify.app",
+            "role": "Maintainer"
         }
     ],
     "require": {
