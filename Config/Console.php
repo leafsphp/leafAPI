@@ -15,7 +15,6 @@ class Console {
 		$this->app->add(new \Config\Command\ConsoleCommand());
 
 		// Generate Commands
-		$this->app->add(new \Config\Command\GenerateTemplateCommand());
 		$this->app->add(new \Config\Command\GenerateMigrationCommand());
 		$this->app->add(new \Config\Command\GenerateModelCommand());
 		$this->app->add(new \Config\Command\GenerateHelperCommand());
@@ -24,7 +23,7 @@ class Console {
 
 		// Delete Commands
 		$this->app->add(new \Config\Command\DeleteModelCommand());
-		$this->app->add(new \Config\Command\DeleteTemplateCommand());
+		$this->app->add(new \Config\Command\DeleteSeedCommand());
 		$this->app->add(new \Config\Command\DeleteControllerCommand());
 
 		// Database Commands

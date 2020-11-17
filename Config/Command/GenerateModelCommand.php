@@ -53,7 +53,7 @@ class GenerateModelCommand extends Command
 
         $className = $model;
 
-        if (strpos($model, "/")) {
+        if (strpos($model, "/") !== 0) {
             list($dirname, $className) = explode("/", $model);
         }
 
