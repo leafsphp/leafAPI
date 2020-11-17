@@ -35,18 +35,26 @@ class Console {
 	/**
 	 * Register a custom command
 	 * 
-	 * @param Symfony\Component\Console\Command\Command $command: Command to run
+	 * @param array|Symfony\Component\Console\Command\Command $command: Command to run
 	 * 
 	 * @return void
 	 */
-	public function registerCustom($command) {
-		$this->app->add($command);
+	public function registerCustom($command)
+	{
+		if (is_array($command)) {
+			foreach ($command as $item) {
+				$this->registerCustom($item);
+			}
+		} else {
+			$this->app->add(new $command);
+		}
 	}
 
 	/**
 	 * Run the console app
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->app->run();
 	}
 }
