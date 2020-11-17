@@ -16,19 +16,19 @@ class GenerateControllerCommand extends Command
 {
     protected static $defaultName = 'g:controller';
 
-    public function __construct(){
-        $this->controllerPath = dirname(dirname(__DIR__)) . '/App/Controllers/';
+    public function __construct()
+    {
+        $this->controllerPath = dirname(dirname(__DIR__)) . controllers_path();
         parent::__construct();
     }
 
     protected function configure()
     {
-        $this 
+        $this
             ->setDescription("Create a new controller class")
             ->setHelp("Create a new controller class")
             ->addArgument("controller", InputArgument::REQUIRED, 'controller name')
             ->addOption("all", "a", InputOption::VALUE_NONE, 'Create a model and migration for controller')
-            ->addOption("template", "t", InputOption::VALUE_NONE, 'Create a template for controller')
             ->addOption("view", null, InputOption::VALUE_NONE, 'Create a template for controller')
             ->addOption("model", "m", InputOption::VALUE_NONE, 'Create a model for controller')
             ->addOption("resource", "r", InputOption::VALUE_NONE, 'Create a resource controller')
@@ -37,9 +37,6 @@ class GenerateControllerCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (!in_array($input->getOption('resource'), [true, false])) {
-            throw new InvalidArgumentException('Invalid option.');
-        }
         $output->writeln($this->_generateController($input, $output));
     }
 
@@ -47,7 +44,7 @@ class GenerateControllerCommand extends Command
     {
         list($dirname, $filename) = BaseCommand::dir_and_file($input);
 
-        if (!file_exists($dirname . '/' . $filename)):
+        if (!file_exists($dirname . '/' . $filename)) :
             $file = $dirname . '/' . $filename;
             $controller = str_replace(".php", "", $filename);
             touch($file);
@@ -64,25 +61,21 @@ class GenerateControllerCommand extends Command
             }
 
             if ($input->getOption('all')) {
-                $process = new Process("php leaf g:model ".Str::studly(str_replace("Controller", "", $controller))." -m");
+                $process = new Process("php leaf g:model " . Str::studly(str_replace("Controller", "", $controller)) . " -m");
                 $process->run();
-                $output->writeln(Str::singular(Str::studly(str_replace("Controller", "", $controller)))." model generated successfully with migration");
+                $output->writeln(Str::singular(Str::studly(str_replace("Controller", "", $controller))) . " model generated successfully with migration");
             } elseif ($input->getOption('model')) {
-                $process = new Process("php leaf g:model ".Str::studly(str_replace("Controller", "", $controller)));
+                $process = new Process("php leaf g:model " . Str::studly(str_replace("Controller", "", $controller)));
                 $process->run();
                 $output->writeln(Str::singular(Str::studly(str_replace("Controller", "", $controller))) . " model generated successfully");
-            } elseif ($input->getOption('template') || $input->getOption('view')) {
-                $process = new Process("php leaf g:template ".Str::lower(str_replace("Controller", "", $controller)));
-                $process->run();
-                $output->writeln(Str::lower(str_replace("Controller", "", $controller)).".blade.php generated successfully");
             }
-            
+
             $fileContent = str_replace(["ClassName"], [$controller], $fileContent);
             file_put_contents($file, $fileContent);
 
             return "$controller created successfully";
-        else:
-            return str_replace(".php", "", $filename)." already exists";
+        else :
+            return str_replace(".php", "", $filename) . " already exists";
         endif;
     }
 }
