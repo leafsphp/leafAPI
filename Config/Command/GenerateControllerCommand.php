@@ -29,7 +29,6 @@ class GenerateControllerCommand extends Command
             ->setHelp("Create a new controller class")
             ->addArgument("controller", InputArgument::REQUIRED, 'controller name')
             ->addOption("all", "a", InputOption::VALUE_NONE, 'Create a model and migration for controller')
-            ->addOption("view", null, InputOption::VALUE_NONE, 'Create a template for controller')
             ->addOption("model", "m", InputOption::VALUE_NONE, 'Create a model for controller')
             ->addOption("resource", "r", InputOption::VALUE_NONE, 'Create a resource controller')
             ->addOption("web", "w", InputOption::VALUE_NONE, 'Create a web(ordinary) controller');

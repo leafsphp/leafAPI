@@ -1,10 +1,18 @@
 <?php 
 namespace App\Helpers;
 
-use Leaf\Helper;
+use App\Models\ModelName;
 
-class ClassName extends Helper  {
-    public function __construct() {
-        parent::__construct();
+/**
+ * ModelName Helper
+ * ----------------
+ * Leaf API Helpers basically contain static methods
+ * that you can call from your controllers
+ */
+class ClassName
+{
+    public static function getModelNames()
+    {
+        return ModelName::all();
     }
 }
