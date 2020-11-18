@@ -1,6 +1,8 @@
 <?php
 namespace Config;
 
+require __DIR__ . "/paths.php";
+
 use Symfony\Component\Console\Application;
 
 class Console {
@@ -20,11 +22,13 @@ class Console {
 		$this->app->add(new \Config\Command\GenerateHelperCommand());
 		$this->app->add(new \Config\Command\GenerateControllerCommand());
 		$this->app->add(new \Config\Command\GenerateSeedCommand());
+		$this->app->add(new \Config\Command\GenerateConsoleCommand());
 
 		// Delete Commands
 		$this->app->add(new \Config\Command\DeleteModelCommand());
 		$this->app->add(new \Config\Command\DeleteSeedCommand());
 		$this->app->add(new \Config\Command\DeleteControllerCommand());
+		$this->app->add(new \Config\Command\DeleteConsoleCommand());
 
 		// Database Commands
 		$this->app->add(new \Config\Command\DatabaseInstallCommand());

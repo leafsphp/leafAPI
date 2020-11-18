@@ -1,4 +1,5 @@
 <!-- markdownlint-disable no-inline-html -->
+<!-- markdownlint-disable no-duplicate-heading -->
 # Changelog - Leaf API v2.0
 
 Version 2 of Leaf API contains a bunch of new features, some inclusions and even some breaking changes which are geared to easy integration with other libraries, as well as bettering some internal features used by Leaf API and Leaf MVC.
@@ -44,6 +45,44 @@ Since you can rollback a single file, it only makes sense to be able to migrate 
 php leaf db:migrate -f users
 ```
 
+#### Generate Console commands
+
+You can also now generate console commands from the console directly. Leaf doesn't just generate the command file for you, but also registers it in the console, so you can use it right away, amazing right?
+
+```sh
+php leaf g:command start
+```
+
+This will generate `StartCommand` in `App\Console`. It's also registered in the console, so right away, you can do:
+
+```sh
+php leaf start
+```
+
+What of namespaced commands? Not to worry, Leaf is SMART! Just go ahead and do your stuff, Leaf will take care of the rest.
+
+```sh
+php leaf g:command order:items
+```
+
+Leaf will create the `OrderItemsCommand`, add the order namespace in the console and register the command for immediete use. It doesn't get any better. You can also use the filename you want instead of the command.
+
+```sh
+php leaf g:command ClockCommand
+```
+
+#### Delete Console Commands
+
+Since you can create, you can delete as well. Leaf Console allows you to delete custom console commands. The command isn't only deleted, but it's also unregistered.
+
+```sh
+php leaf d:command ClockCommand
+
+# or
+
+php leaf d:command Clock
+```
+
 <hr>
 
 ### Fixes
@@ -73,11 +112,11 @@ This version also comes with extensive support for database seeds. There are now
 Create seeds:
 
 ```sh
-$ php leaf g:seed Admin
+$ php leaf g:seed Admins
 
 # or
 
-$ php leaf g:seed AdminSeeder
+$ php leaf g:seed AdminsSeeder
 ```
 
 Delete:

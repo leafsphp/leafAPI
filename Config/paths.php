@@ -19,9 +19,17 @@ function config_path($path = null)
 /**
  * Storage directory path 
  */
-function storage_path($path = null)
+function storage_path($path = null, bool $slash = false)
 {
-	return "storage/$path";
+	return $slash ? "/storage/$path" : "storage/$path";
+}
+
+/**
+ * Commands directory path
+ */
+function commands_path($path = null)
+{
+	return "/App/Console/$path";
 }
 
 /**
