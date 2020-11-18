@@ -139,3 +139,11 @@ $console->registerCustom([
 #### Template commads
 
 All template commands and console options associated with views and templates have officially been discontinued. You can create your own templates or use any templating engine you prefer, however, default views have been removed.
+
+## Directory Structure
+
+### Breaking Changes
+
+#### Routes
+
+Routes were defined in `Routes.php` in previous versions, however, for 'scalability' reasons, routes have been grouped in the `Routes` directory in which other files can be created to group routes in. An example has already been created which you can refer to.
