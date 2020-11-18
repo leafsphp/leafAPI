@@ -30,7 +30,7 @@
         {
             $modelName = Str::studly(Str::singular($input->getArgument("model")));
             $seedName = $input->getArgument("name") ?? $modelName;
-            $className = Str::studly(Str::singular($seedName));
+            $className = Str::studly(Str::plural($seedName));
 
             if (!strpos($seedName, "Seeder")) {
                 $className .= "Seeder";
@@ -43,10 +43,14 @@
                 touch($file);
 
                 $fileContent = \file_get_contents(__DIR__ . '/stubs/seed.stub');
-                $fileContent = str_replace(["ClassName", "modelName"], [$className, $modelName], $fileContent);
+                $fileContent = str_replace(
+                    ["ClassName", "ModelName", "\$entity"],
+                    [$className, $modelName, Str::lower($modelName)],
+                    $fileContent
+                );
                 file_put_contents($file, $fileContent);
 
-                $output->writeln("$filename generated successfully");
+                $output->writeln("<comment>$filename generated successfully</comment>");
             else:
                 $output->writeln("<error>$seedName already exists</error>");
             endif;

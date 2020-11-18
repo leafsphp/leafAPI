@@ -33,9 +33,9 @@ class DeleteSeedCommand extends Command
 
         if (file_exists($dirname . $filename)) :
             unlink($dirname . $filename);
-            $output->writeln("$filename deleted successfully");
+            $output->writeln("<comment>$filename deleted successfully</comment>");
         else :
-            $output->writeln("Seeder does not exist!");
+            $output->writeln("<error>Seeder does not exist!</error>");
         endif;
     }
 

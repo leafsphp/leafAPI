@@ -2,19 +2,25 @@
 namespace App\Database\Seeds;
 
 use Illuminate\Database\Seeder;
-use App\Models\modelName;
+use App\Models\ModelName;
 
 class ClassName extends Seeder
 {
     /**
-     * Seed the table's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        //$entity = new modelName();
-        //$entity->field    = 'value';
-        //$entity->save();
+        // $entity = new ModelName();
+        // $entity->field = 'value';
+        // $entity->save();
+
+        // or
+
+        // ModelName::create([
+        //    "field" => "value"
+        // ]);
     }
 }

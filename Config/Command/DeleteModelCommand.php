@@ -30,31 +30,26 @@ class DeleteModelCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln($this->_deleteModel($input));
-    }
-
-    public function _deleteModel($input)
-    {
         list($dirname, $filename) = $this->dir_and_file($input);
 
-        if (file_exists($dirname . '/' . $filename)) :
-            unlink($dirname . '/' . $filename);
+        if (!file_exists($dirname . '/' . $filename)) {
+            return $output->writeln("<error>Model does not exist!</error>");
+        }
 
-            $is_empty = !(new \FilesystemIterator($dirname))->valid();
+        unlink($dirname . '/' . $filename);
 
-            if ($is_empty === true) :
-                $path = explode('/', $dirname);
-                $base_model = Str::studly(strtolower(end($path))) . ".php";
-                $base_path = str_replace(end($path), "", $dirname);
+        $is_empty = !(new \FilesystemIterator($dirname))->valid();
 
-                unlink($base_path . $base_model);
-                rmdir($dirname);
-            endif;
-        else :
-            return "Model does not exist!";
+        if ($is_empty === true) :
+            $path = explode('/', $dirname);
+            $base_model = Str::studly(strtolower(end($path))) . ".php";
+            $base_path = str_replace(end($path), "", $dirname);
+
+            unlink($base_path . $base_model);
+            rmdir($dirname);
         endif;
 
-        return "{$filename} deleted successfully";
+        return $output->writeln("<comment>$filename deleted successfully</comment>");
     }
 
     public function dir_and_file($input): array

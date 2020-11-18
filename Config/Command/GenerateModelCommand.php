@@ -36,14 +36,14 @@ class GenerateModelCommand extends Command
 
         if (!file_exists($model)) :
             $model = $this->_createModel($input);
-            $output->writeln($model . ' model generated');
+            $output->writeln("<comment>$model model generated</comment>");
 
             if ($input->getOption('migration')) :
                 $migration = $this->_createMigration($input);
-                $output->writeln($migration . ' file generated');
+                $output->writeln("<comment>$migration file generated</comment>");
             endif;
         else :
-            $output->writeln("Model already exists");
+            $output->writeln("<error>Model already exists</error>");
         endif;
     }
 
@@ -53,7 +53,7 @@ class GenerateModelCommand extends Command
 
         $className = $model;
 
-        if (strpos($model, "/") !== 0) {
+        if (strpos($model, "/") && strpos($model, "/") !== 0) {
             list($dirname, $className) = explode("/", $model);
         }
 
