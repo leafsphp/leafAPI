@@ -107,7 +107,7 @@ This has been fixed, also, if the Users subdirectory doesn't exist, it is automa
 
 #### Working with Seeds
 
-This version also comes with extensive support for database seeds. There are now commands to create and delete seeds, as well as to seed the database with records, kind courtesy [Mauro Callegari](https://github.com/MauMaxxa)
+This version also comes with extensive support for database seeds. There are now commands to create and delete seeds, as well as to seed the database with records, courtesy of [Mauro Callegari](https://github.com/MauMaxxa)
 
 Create seeds:
 

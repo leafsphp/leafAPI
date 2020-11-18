@@ -37,8 +37,13 @@ class DeleteConsoleCommand extends Command
             $leafFile = dirname(dirname(__DIR__)) . "/leaf";
             $leafFileContents = file_get_contents($leafFile);
             $leafFileContents = str_replace(
-                "\$console->registerCustom(\App\Console\\$className::class);",
-                "",
+                [
+                    "\$console->registerCustom(\App\Console\\$className::class);",
+                    "\$console = new \Config\Console;
+
+"
+                ],
+                ["", "\$console = new \Config\Console;"],
                 $leafFileContents
             );
             \file_put_contents($leafFile, $leafFileContents);

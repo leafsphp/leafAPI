@@ -43,8 +43,6 @@ require __DIR__.'/Config/bootstrap.php';
 */
 $console = new \Config\Console;
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Add custom command
