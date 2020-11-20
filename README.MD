@@ -37,6 +37,7 @@ C:.
 │   │   └───Seeds
 │   ├───Helpers
 │   ├───Models
+│   ├───Routes
 │   └───Views
 ├───Config
 │   └───Command
