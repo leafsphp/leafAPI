@@ -21,7 +21,7 @@
     "require": {
         "doctrine/dbal": "^2.9",
         "illuminate/console": "^6.3",
-        "leafs/leaf": "v2.2.0-beta",
+        "leafs/leaf": "^2.3",
         "psy/psysh": "^0.9.9",
         "symfony/console": "^4.3",
         "vlucas/phpdotenv": "^3.6"
