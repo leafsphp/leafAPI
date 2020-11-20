@@ -14,7 +14,6 @@ class DeleteControllerCommand extends Command {
     protected static $defaultName = "d:controller";
 
     public function __construct() {
-        $this->controllerPath = dirname(dirname(__DIR__)) . '/App/Controllers/';
         parent::__construct();
     }
 
@@ -25,31 +24,15 @@ class DeleteControllerCommand extends Command {
             ->addArgument("controller", InputArgument::REQUIRED, "controller name");
     }
 
-
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $output->writeln($this->_deleteController($input));
-    }
-
-    public function _deleteController($input) {
         list($dirname, $filename) = BaseCommand::dir_and_file($input);
 
-        if(file_exists($dirname . '/' . $filename)):
-            unlink($dirname . '/' . $filename);
+        if (!file_exists($dirname . '/' . $filename)) {
+            return $output->writeln("<error>Controller does not exist!</error>");
+        }
 
-            $is_empty = !(new \FilesystemIterator($dirname))->valid();
+        unlink($dirname . '/' . $filename);
 
-            if ($is_empty === true):
-                $path = explode('/', $dirname);
-                $base_controller = Str::studly(strtolower(end($path))) . ".php";
-                $base_path = str_replace(end($path), "", $dirname);
-
-                unlink($base_path . $base_controller);
-                rmdir($dirname);
-            endif;
-        else:
-            return "Controller does not exists";
-        endif;
-
-        return "{$filename} controller deleted successfully";
+        return $output->writeln("<comment>$filename controller deleted successfully</comment>");
     }
 }

@@ -13,7 +13,6 @@ class GenerateHelperCommand extends Command
     protected static $defaultName = 'g:helper';
 
     public function __construct(){
-        $this->helperPath = dirname(dirname(__DIR__)) . helpers_path();
         parent::__construct();
     }
 
@@ -29,23 +28,23 @@ class GenerateHelperCommand extends Command
     {
         list($helper, $modelName) = $this->mapNames($input->getArgument("helper"));
 
-        $file = $this->helperPath . $helper . '.php';
+        $file = BaseCommand::helpers_path("$helper.php");
 
         if (file_exists($file)) {
-            $output->writeln("<error>$helper already exists!</error>");
-        } else {
-            if (file_exists($this->helperPath . ".init")) {
-                unlink($this->helperPath . ".init");
-            }
-
-            touch($file);
-
-            $fileContent = \file_get_contents(__DIR__ . '/stubs/helper.stub');
-            $fileContent = str_replace(['ClassName', 'ModelName'], [$helper, $modelName], $fileContent);
-            \file_put_contents($file, $fileContent);
-
-            $output->writeln("<comment>$helper generated successfully</comment>");
+            return $output->writeln("<error>$helper already exists!</error>");
         }
+
+        if (file_exists(BaseCommand::helpers_path(".init"))) {
+            unlink(BaseCommand::helpers_path(".init"));
+        }
+
+        touch($file);
+
+        $fileContent = \file_get_contents(__DIR__ . '/stubs/helper.stub');
+        $fileContent = str_replace(['ClassName', 'ModelName'], [$helper, $modelName], $fileContent);
+        \file_put_contents($file, $fileContent);
+
+        return $output->writeln("<comment>$helper generated successfully</comment>");
     }
 
     protected function mapNames($helperName)

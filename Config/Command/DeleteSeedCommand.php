@@ -15,7 +15,6 @@ class DeleteSeedCommand extends Command
 
     public function __construct()
     {
-        $this->seedsPath = dirname(dirname(__DIR__)) . seeds_path();
         parent::__construct();
     }
 
@@ -41,7 +40,7 @@ class DeleteSeedCommand extends Command
 
     public function dir_and_file($input): array
     {
-        $seedsPath = dirname(dirname(__DIR__)) . seeds_path();
+        $seedsPath = BaseCommand::seeds_path();
 
         $path_to_seed = ($input->getArgument("seed"));
         $path_info = pathinfo($path_to_seed);

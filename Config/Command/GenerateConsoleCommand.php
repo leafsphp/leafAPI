@@ -12,11 +12,8 @@ class GenerateConsoleCommand extends Command
 {
     protected static $defaultName = 'g:command';
 
-    protected $commandsPath;
-
     public function __construct(){
         parent::__construct();
-        $this->commandsPath = dirname(dirname(__DIR__)) . commands_path();
     }
 
     protected function configure()
@@ -31,13 +28,13 @@ class GenerateConsoleCommand extends Command
     {
         list($commandName, $className) = $this->mapNames($input->getArgument("consoleCommand"));
 
-        $file = $this->commandsPath . $className . '.php';
+        $file = BaseCommand::commands_path("$className.php");
 
         if (file_exists($file)) {
             $output->writeln("<error>$className already exists!</error>");
         } else {
-            if (file_exists($this->commandsPath . ".init")) {
-                unlink($this->commandsPath . ".init");
+            if (file_exists(BaseCommand::commands_path(".init"))) {
+                unlink(BaseCommand::commands_path(".init"));
             }
 
             touch($file);

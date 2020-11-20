@@ -13,7 +13,6 @@
 
         public function __construct()
         {
-            $this->seedsPath = dirname(dirname(__DIR__)) . seeds_path();
             parent::__construct();
         }
     
@@ -37,22 +36,22 @@
             }
             
             $filename = $className . ".php";
-            $file = $this->seedsPath . $filename;
+            $file = BaseCommand::seeds_path($filename);
 
-            if (!file_exists($file)):
-                touch($file);
+            if (file_exists($file)) {
+                return $output->writeln("<error>$seedName already exists</error>");
+            }
 
-                $fileContent = \file_get_contents(__DIR__ . '/stubs/seed.stub');
-                $fileContent = str_replace(
-                    ["ClassName", "ModelName", "\$entity"],
-                    [$className, $modelName, Str::lower($modelName)],
-                    $fileContent
-                );
-                file_put_contents($file, $fileContent);
+            touch($file);
 
-                $output->writeln("<comment>$filename generated successfully</comment>");
-            else:
-                $output->writeln("<error>$seedName already exists</error>");
-            endif;
+            $fileContent = \file_get_contents(__DIR__ . '/stubs/seed.stub');
+            $fileContent = str_replace(
+                ["ClassName", "ModelName", "entity"],
+                [$className, $modelName, Str::lower($modelName)],
+                $fileContent
+            );
+            file_put_contents($file, $fileContent);
+
+            $output->writeln("<comment>$filename generated successfully</comment>");
         }
     }

@@ -18,7 +18,6 @@ class GenerateControllerCommand extends Command
 
     public function __construct()
     {
-        $this->controllerPath = dirname(dirname(__DIR__)) . controllers_path();
         parent::__construct();
     }
 
@@ -36,45 +35,40 @@ class GenerateControllerCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln($this->_generateController($input, $output));
-    }
-
-    public function _generateController($input, $output)
-    {
         list($dirname, $filename) = BaseCommand::dir_and_file($input);
 
-        if (!file_exists($dirname . '/' . $filename)) :
-            $file = $dirname . '/' . $filename;
-            $controller = str_replace(".php", "", $filename);
-            touch($file);
+        if (file_exists($dirname . '/' . $filename)) {
+            return $output->writeln("<error>" . str_replace(".php", "", $filename) . " already exists</error>");
+        }
 
-            if (!$input->getOption('web')) {
-                if (!$input->getOption('resource')) {
-                    $fileContent = file_get_contents(__DIR__ . '/stubs/apiController.stub');
-                } else {
-                    $fileContent = file_get_contents(__DIR__ . '/stubs/resourceController.stub');
-                    $fileContent = str_replace(["ModelName"], [Str::singular(Str::studly(str_replace("Controller", "", $controller)))], $fileContent);
-                }
+        $file = $dirname . '/' . $filename;
+        $controller = str_replace(".php", "", $filename);
+        touch($file);
+
+        if (!$input->getOption('web')) {
+            if (!$input->getOption('resource')) {
+                $fileContent = file_get_contents(__DIR__ . '/stubs/apiController.stub');
             } else {
-                $fileContent = file_get_contents(__DIR__ . '/stubs/controller.stub');
+                $fileContent = file_get_contents(__DIR__ . '/stubs/resourceController.stub');
+                $fileContent = str_replace(["ModelName"], [Str::singular(Str::studly(str_replace("Controller", "", $controller)))], $fileContent);
             }
+        } else {
+            $fileContent = file_get_contents(__DIR__ . '/stubs/controller.stub');
+        }
 
-            if ($input->getOption('all')) {
-                $process = new Process("php leaf g:model " . Str::studly(str_replace("Controller", "", $controller)) . " -m");
-                $process->run();
-                $output->writeln(Str::singular(Str::studly(str_replace("Controller", "", $controller))) . " model generated successfully with migration");
-            } elseif ($input->getOption('model')) {
-                $process = new Process("php leaf g:model " . Str::studly(str_replace("Controller", "", $controller)));
-                $process->run();
-                $output->writeln(Str::singular(Str::studly(str_replace("Controller", "", $controller))) . " model generated successfully");
-            }
+        if ($input->getOption('all')) {
+            $process = new Process("php leaf g:model " . Str::studly(str_replace("Controller", "", $controller)) . " -m");
+            $process->run();
+            $output->writeln(Str::singular(Str::studly(str_replace("Controller", "", $controller))) . " model generated successfully with migration");
+        } elseif ($input->getOption('model')) {
+            $process = new Process("php leaf g:model " . Str::studly(str_replace("Controller", "", $controller)));
+            $process->run();
+            $output->writeln(Str::singular(Str::studly(str_replace("Controller", "", $controller))) . " model generated successfully");
+        }
 
-            $fileContent = str_replace(["ClassName"], [$controller], $fileContent);
-            file_put_contents($file, $fileContent);
+        $fileContent = str_replace(["ClassName"], [$controller], $fileContent);
+        file_put_contents($file, $fileContent);
 
-            return "$controller created successfully";
-        else :
-            return str_replace(".php", "", $filename) . " already exists";
-        endif;
+        return $output->writeln("<comment>$controller created successfully<comment>");
     }
 }

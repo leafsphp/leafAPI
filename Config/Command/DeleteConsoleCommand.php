@@ -56,7 +56,7 @@ class DeleteConsoleCommand extends Command
 
     public function dir_and_file($input): array
     {
-        $commandsPath = dirname(dirname(__DIR__)) . commands_path();
+        $commandsPath = BaseCommand::commands_path();
 
         $path_to_seed = ($input->getArgument("file"));
         $path_info = pathinfo($path_to_seed);

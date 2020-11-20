@@ -12,7 +12,6 @@ class DatabaseSeedCommand extends Command {
     protected static $defaultName = "db:seed";
 
     public function __construct() {
-        $this->seedPath = dirname(dirname(__DIR__)) . '/App/Database/Seeds/';
         parent::__construct();
     }
 
@@ -26,27 +25,26 @@ class DatabaseSeedCommand extends Command {
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $seeds = glob($this->seedPath . '*.php');
-        
-        foreach ($seeds as $seed) {
-            $file = pathinfo($seed);
-            $filename = $file['filename'];
-
-            if ($filename !== ""):
-
-                $className = Str::studly(str_replace(".php","",$filename));
-                $this->seed($filename, $className);
-                $output->writeln("> ".str_replace(".php","",$file['basename']) . ' seeded successfully');
-
-            endif;
+        if (!file_exists(BaseCommand::seeds_path("DatabaseSeeder.php"))) {
+            return $output->writeln("<error>DatabaseSeeder not found! Refer to the docs.</error>");
         }
 
-        $output->writeln("Database seed complete");
-    }
+        $seeder = new \App\Database\Seeds\DatabaseSeeder;
+        $seeds = glob(BaseCommand::seeds_path("*.php"));
 
-    protected function seed($filename, $className) {
-        $class = "\App\Database\Seeds\\".$className;
-        $seed = new $class;
-        $seed->run();
+        if (count($seeds) === 1) {
+            return $output->writeln("<error>No seeds found! Create one with the g:seed command.</error>");
+        }
+
+        if (count($seeder->run()) === 0) {
+            return $output->writeln("<error>No seeds registered. Add your seeds in DatabaseSeeder.php</error>");
+        }
+
+        foreach ($seeder->run() as $seed) {
+            $seeder->call($seed);
+            $output->writeln("> <comment>$seed</comment> seeded successfully");
+        }
+
+        $output->writeln("<info>Database seed complete</info>");
     }
 }

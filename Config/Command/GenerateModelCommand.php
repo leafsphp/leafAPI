@@ -16,9 +16,6 @@ class GenerateModelCommand extends Command
     public function __construct()
     {
         parent::__construct();
-
-        $this->migrationPath = dirname(dirname(__DIR__)) . migrations_path();
-        $this->modelPath  = dirname(dirname(__DIR__)) . models_path();
     }
 
     protected function configure()
@@ -32,15 +29,15 @@ class GenerateModelCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $model = $this->modelPath . Str::singular(Str::studly($input->getArgument("model"))) . '.php';
+        $model = BaseCommand::models_path(Str::singular(Str::studly($input->getArgument("model"))) . '.php');
 
         if (!file_exists($model)) :
             $model = $this->_createModel($input);
-            $output->writeln("<comment>$model model generated</comment>");
+            $output->writeln("<info><comment>$model</comment> model generated</info>");
 
             if ($input->getOption('migration')) :
                 $migration = $this->_createMigration($input);
-                $output->writeln("<comment>$migration file generated</comment>");
+                $output->writeln("<info><comment>$migration</comment> migration generated</info>");
             endif;
         else :
             $output->writeln("<error>Model already exists</error>");
@@ -59,7 +56,7 @@ class GenerateModelCommand extends Command
 
         $fileContent = \file_get_contents(__DIR__ . '/stubs/model.stub');
         $fileContent = str_replace("ClassName", $className, $fileContent);
-        $filePath = $this->modelPath . "$model.php";
+        $filePath = BaseCommand::models_path("$model.php");
 
         if (!is_dir(dirname($filePath))) mkdir(dirname($filePath));
 
@@ -72,7 +69,7 @@ class GenerateModelCommand extends Command
     {
         $model = $input->getArgument("model");
         $filename = Str::snake(Str::plural($model));
-        $file = $this->migrationPath . date("Y_m_d_His") . '_create_' . $filename . '.php';
+        $file = BaseCommand::migrations_path(date("Y_m_d_His") . "_create_$filename.php");
 
         touch($file);
 
@@ -88,6 +85,6 @@ class GenerateModelCommand extends Command
         );
         file_put_contents($file, $fileContent);
 
-        return $file;
+        return str_replace([BaseCommand::migrations_path(), ".php"], "", $file);
     }
 }

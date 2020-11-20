@@ -14,7 +14,6 @@ class DatabaseMigrationCommand extends Command
 
     public function __construct()
     {
-        $this->migrationPath = dirname(dirname(__DIR__)) . migrations_path();
         parent::__construct();
     }
 
@@ -30,12 +29,8 @@ class DatabaseMigrationCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $fileToRollback = $input->getOption('file');
-        $this->_runMigrations($output, $fileToRollback);
-    }
 
-    public function _runMigrations($output, $fileToRollback)
-    {
-        $migrations = glob($this->migrationPath . '*.php');
+        $migrations = glob(BaseCommand::migrations_path('*.php'));
 
         foreach ($migrations as $migration) {
             $file = pathinfo($migration);
@@ -47,7 +42,7 @@ class DatabaseMigrationCommand extends Command
                 if ($fileToRollback) {
                     if (strpos($migration, Str::snake("_create_$fileToRollback.php")) !== false) {
                         $this->migrate($className, $filename);
-                        $output->writeln('<info>db migration on <comment>' . str_replace(dirname(dirname(__DIR__)) . migrations_path(), "", $migration . "</comment></info>"));
+                        $output->writeln("<info>db migration on <comment>" . str_replace(BaseCommand::migrations_path(), "", $migration) . "</comment></info>");
                         exit();
                     }
 
@@ -56,9 +51,11 @@ class DatabaseMigrationCommand extends Command
                     $this->migrate($className, $filename);
                 }
 
-                $output->writeln('<info>db migration on <comment>' . str_replace(dirname(dirname(__DIR__)) . migrations_path(), "", $migration . "</comment></info>"));
+                $output->writeln("> db migration on <comment>" . str_replace(BaseCommand::migrations_path(), "", $migration) . "</comment>");
             endif;
         }
+
+        $output->writeln("<info>Database migration completed!</info>\n");
     }
 
     protected function migrate($className, $filename)

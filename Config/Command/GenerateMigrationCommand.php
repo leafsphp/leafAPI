@@ -14,7 +14,6 @@
 
         public function __construct()
         {
-            $this->migrationPath = dirname(dirname(__DIR__)) . "/App/Database/Migrations/";
             parent::__construct();
         }
     
@@ -23,27 +22,29 @@
             $this 
                 ->setDescription("Create a new migration file")
                 ->setHelp("Create a new migration file")
-                ->addArgument('migration', InputArgument::REQUIRED, 'migration file name');
+                ->addArgument("migration", InputArgument::REQUIRED, "migration file name");
         }
     
         protected function execute(InputInterface $input, OutputInterface $output)
         {
-            $userInput = Str::plural($input->getArgument("migration"));
-            $filename = Str::snake("Create_".$userInput);
-            
-            $actualFileName = date("Y_m_d_His").'_'.$filename.'.php';
-            $file = $this->migrationPath.$actualFileName;
+            $userInput = strtolower(Str::snake(Str::plural($input->getArgument("migration"))));
+
+            if (strpos($userInput, "create") === false) {
+                $userInput = Str::snake("create_$userInput");
+            }
+
+            $actualFileName = Str::snake(date("Y_m_d_His") . "_$userInput.php");
+            $file = BaseCommand::migrations_path($actualFileName);
             
             touch($file);
-
-            $className = Str::studly("Create".$input->getArgument("migration"));
+            
+            $className = Str::studly($userInput);
 
             $fileContent = \file_get_contents(__DIR__ . '/stubs/migration.stub');
-
-            $fileContent = str_replace(["ClassName", "tableName"], [$className, $userInput], $fileContent);
+            $fileContent = str_replace(["ClassName", "tableName"], [$className, str_replace("create_", "", $userInput)], $fileContent);
             
             file_put_contents($file, $fileContent);
 
-            $output->writeln($actualFileName . ' generated successfully');
+            $output->writeln("<info><comment>$actualFileName</comment> generated successfully</info>");
         }
     }

@@ -15,7 +15,6 @@ class DeleteModelCommand extends Command
 
     public function __construct()
     {
-        $this->modelPath = dirname(dirname(__DIR__)) . models_path();
         parent::__construct();
     }
 
@@ -32,29 +31,17 @@ class DeleteModelCommand extends Command
     {
         list($dirname, $filename) = $this->dir_and_file($input);
 
-        if (!file_exists($dirname . '/' . $filename)) {
+        if (!file_exists("$dirname/$filename")) {
             return $output->writeln("<error>Model does not exist!</error>");
         }
 
-        unlink($dirname . '/' . $filename);
-
-        $is_empty = !(new \FilesystemIterator($dirname))->valid();
-
-        if ($is_empty === true) :
-            $path = explode('/', $dirname);
-            $base_model = Str::studly(strtolower(end($path))) . ".php";
-            $base_path = str_replace(end($path), "", $dirname);
-
-            unlink($base_path . $base_model);
-            rmdir($dirname);
-        endif;
-
+        unlink("$dirname/$filename");
         return $output->writeln("<comment>$filename deleted successfully</comment>");
     }
 
     public function dir_and_file($input): array
     {
-        $modelPath = dirname(dirname(__DIR__)) . models_path();
+        $modelPath = BaseCommand::models_path();
 
         $path_to_model = ($input->getArgument("model"));
         $path_info = pathinfo($path_to_model);

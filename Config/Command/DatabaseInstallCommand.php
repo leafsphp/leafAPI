@@ -27,9 +27,9 @@ class DatabaseInstallCommand extends Command
             \mysqli_connect($host, $user, $password, ""),
             "CREATE DATABASE `$database`"
         )) {
-            $output->writeln("<info>$database created successfully.</info>");
-        } else {
-            $output->writeln("<error>$database could not be created.</error>");
+            return $output->writeln("<info>$database created successfully.</info>");
         }
+        
+        return $output->writeln("<error>$database could not be created.</error>");
     }
 }

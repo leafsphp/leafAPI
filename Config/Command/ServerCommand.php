@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputOption;
 
 class ServerCommand extends Command
 {
@@ -17,15 +17,17 @@ class ServerCommand extends Command
         $this
             ->setHelp("Start the leaf app server")
             ->setDescription("Run your Leaf app")
-            ->addArgument("port", InputArgument::OPTIONAL, "port number");
+            ->addOption("port", "p", InputOption::VALUE_OPTIONAL, "Port to run Leaf app on", 5500)
+            ->addArgument("path", InputArgument::OPTIONAL, "Path to your app (in case you changed it)");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $port = $input->getArgument("port") ? (int)$input->getArgument("port") : 5500; 
+        $port = $input->getOption("port");
+        $path = $input->getArgument("path");
 
-        $output->write("Leaf development server started: http://localhost:$port\n");
-        $output->write("Happy gardening!! \n");
-        $output->write(shell_exec("php -S localhost:{$port}"));
+        $output->writeln("<comment>Leaf development server started on <info>http://localhost:$port</info></comment>");
+        $output->writeln("<info>Happy gardening!!</info>\n");
+        $output->writeln(shell_exec("php -S localhost:$port $path"));
     }
 }
