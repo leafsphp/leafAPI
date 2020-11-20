@@ -31,31 +31,31 @@ class GenerateConsoleCommand extends Command
         $file = BaseCommand::commands_path("$className.php");
 
         if (file_exists($file)) {
-            $output->writeln("<error>$className already exists!</error>");
-        } else {
-            if (file_exists(BaseCommand::commands_path(".init"))) {
-                unlink(BaseCommand::commands_path(".init"));
-            }
+            return $output->writeln("<error>$className already exists!</error>");
+        }
 
-            touch($file);
+        if (file_exists(BaseCommand::commands_path(".init"))) {
+            unlink(BaseCommand::commands_path(".init"));
+        }
 
-            $fileContent = \file_get_contents(__DIR__ . '/stubs/console.stub');
-            $fileContent = str_replace(['ClassName', 'CommandName'], [$className, $commandName], $fileContent);
-            \file_put_contents($file, $fileContent);
+        touch($file);
 
-            $leafFile = dirname(dirname(__DIR__)) . "/leaf";
-            $leafFileContents = file_get_contents($leafFile);
-            $leafFileContents = str_replace(
-                "\$console = new \Config\Console;",
-                "\$console = new \Config\Console;
+        $fileContent = \file_get_contents(__DIR__ . '/stubs/console.stub');
+        $fileContent = str_replace(['ClassName', 'CommandName'], [$className, $commandName], $fileContent);
+        \file_put_contents($file, $fileContent);
+
+        $leafFile = dirname(dirname(__DIR__)) . "/leaf";
+        $leafFileContents = file_get_contents($leafFile);
+        $leafFileContents = str_replace(
+            "\$console = new \Config\Console;",
+            "\$console = new \Config\Console;
 
 \$console->registerCustom(\App\Console\\$className::class);",
-                $leafFileContents
-            );
-            \file_put_contents($leafFile, $leafFileContents);
+            $leafFileContents
+        );
+        \file_put_contents($leafFile, $leafFileContents);
 
-            $output->writeln("<comment>$className generated successfully</comment>");
-        }
+        $output->writeln("<comment>$className generated successfully</comment>");
     }
 
     protected function mapNames($command)
@@ -79,6 +79,6 @@ class GenerateConsoleCommand extends Command
             $command = str_replace("Command", "", $command);
         }
 
-        return [Str::lower($command), $className];
+        return [Str::lower($command), Str::studly($className)];
     }
 }

@@ -4,16 +4,10 @@ namespace App\Console;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 class ExampleCommand extends Command
 {
-    protected static $defaultName = 'example';
-
-    protected $description = 'Testing example command';
-
-    protected $help = 'Example command\'s help';
+    protected static $defaultName = "example";
 
     public function __construct(){
         parent::__construct();
@@ -23,21 +17,13 @@ class ExampleCommand extends Command
     protected function configure()
     {
         $this 
-            ->setDescription($this->description)
-            ->setHelp($this->help)
-            ->addOption('example', null, InputOption::VALUE_OPTIONAL, 'description', 'default');
+            ->setDescription("example command")
+            ->setHelp("example's help");
     }
 
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->outputSomething($input, $output);
-    }
-
-
-    protected function outputSomething($input, $output)
-    {
-		$option = $input->getOption('example');
-        isset($option) ? $output->writeln("Example output. Your option was $option") : $output->writeln("Example output");
+        $output->writeln("example's output");
     }
 }
