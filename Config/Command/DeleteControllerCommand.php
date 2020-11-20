@@ -13,10 +13,6 @@ class DeleteControllerCommand extends Command {
 
     protected static $defaultName = "d:controller";
 
-    public function __construct() {
-        parent::__construct();
-    }
-
     protected function configure() {
         $this
             ->setDescription("Delete a controller")

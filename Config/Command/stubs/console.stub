@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Console;
 
 use Symfony\Component\Console\Command\Command;
@@ -13,14 +14,12 @@ class ClassName extends Command
         parent::__construct();
     }
 
-
     protected function configure()
     {
         $this 
             ->setDescription("CommandName command")
             ->setHelp("CommandName's help");
     }
-
 
     public function execute(InputInterface $input, OutputInterface $output)
     {

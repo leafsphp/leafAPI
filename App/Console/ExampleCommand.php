@@ -9,18 +9,12 @@ class ExampleCommand extends Command
 {
     protected static $defaultName = "example";
 
-    public function __construct(){
-        parent::__construct();
-    }
-
-
     protected function configure()
     {
         $this 
             ->setDescription("example command")
             ->setHelp("example's help");
     }
-
 
     public function execute(InputInterface $input, OutputInterface $output)
     {

@@ -10,13 +10,7 @@ use Illuminate\Support\Str;
 
 class DeleteSeedCommand extends Command
 {
-
     protected static $defaultName = "d:seed";
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     protected function configure()
     {

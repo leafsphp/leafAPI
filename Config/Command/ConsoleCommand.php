@@ -7,8 +7,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Psy\Shell;
 
-class ConsoleCommand extends Command {
-
+class ConsoleCommand extends Command
+{
     protected static $defaultName = "stalk";
 
     protected function configure()  {
@@ -16,7 +16,6 @@ class ConsoleCommand extends Command {
             ->setDescription("Interact with your application")
             ->setHelp("Interact with your application");
     }
-
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $shell = new Shell();

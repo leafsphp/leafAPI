@@ -13,11 +13,6 @@ class GenerateModelCommand extends Command
 {
     protected static $defaultName = 'g:model';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     protected function configure()
     {
         $this

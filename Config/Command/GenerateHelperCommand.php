@@ -12,10 +12,6 @@ class GenerateHelperCommand extends Command
 {
     protected static $defaultName = 'g:helper';
 
-    public function __construct(){
-        parent::__construct();
-    }
-
     protected function configure()
     {
         $this 

@@ -12,11 +12,6 @@ class DatabaseMigrationCommand extends Command
 {
     protected static $defaultName = "db:migrate";
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     protected function configure()
     {
         $this

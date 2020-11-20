@@ -11,10 +11,6 @@ class DatabaseSeedCommand extends Command {
 
     protected static $defaultName = "db:seed";
 
-    public function __construct() {
-        parent::__construct();
-    }
-
     protected function configure()
     {
         $this

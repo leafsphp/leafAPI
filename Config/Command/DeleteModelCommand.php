@@ -13,11 +13,6 @@ class DeleteModelCommand extends Command
 
     protected static $defaultName = "d:model";
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     protected function configure()
     {
         $this

@@ -12,11 +12,6 @@ class DatabaseRollbackCommand extends Command
 {
     protected static $defaultName = "db:rollback";
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     protected function configure()
     {
         $this
