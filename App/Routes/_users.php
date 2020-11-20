@@ -4,8 +4,8 @@ $app->get("/leaf", function () {
     respondWithCode("New in v2", 200);
 });
 
+//Basic autentication routes
 $app->mount("/auth", function() use($app) {
-    //Basic autentication routes
 	$app->post("/login", "UsersController@login");
 	$app->post("/register", "UsersController@register");
     //Password reset
@@ -14,6 +14,7 @@ $app->mount("/auth", function() use($app) {
     $app->post("/recover", "UsersController@recover_account"); 
 });
 
+//User routes
 $app->mount("/user", function() use($app) {
     //Get user info
     $app->get("/", "UsersController@user");   
