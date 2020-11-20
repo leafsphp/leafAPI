@@ -96,6 +96,7 @@ require __DIR__ . "/Config/functions.php";
 */
 require __DIR__. "/App/Routes/index.php";
 
+
 /*
 |--------------------------------------------------------------------------
 | Run Leaf Application
