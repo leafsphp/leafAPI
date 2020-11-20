@@ -27,7 +27,7 @@ class UsersController extends Controller {
             "password" => md5($password)
         ]);
         // this line catches any errors that MAY happen
-        if (!$user) $this->throwErr($this->auth->errors());
+        if (!$user) throwErr($this->auth->errors());
 
         // respond is another global shortcut method
         // it's shorter than $this->respond()
@@ -46,7 +46,7 @@ class UsersController extends Controller {
             "password" => "required"
         ]);
         // throws an error if there's an issue in validation
-        if (!$validation) $this->throwErr($this->form->errors());
+        if (!$validation) throwErr($this->form->errors());
 
         // direct registration with Leaf Auth. Registers and initiates a login
         // the 3rd parameter makes sure that the same username and email can't be registered multiple times
@@ -57,7 +57,7 @@ class UsersController extends Controller {
         ], ["username", "email"]);
 
         // throw an auth error if there's an issue
-        if (!$user) $this->throwErr($this->auth->errors());
+        if (!$user) throwErr($this->auth->errors());
 
         respond($user);
     }
@@ -66,7 +66,7 @@ class UsersController extends Controller {
     {
         $username = requestData("email");
 
-        $user = User::where("email", $username)->get()[0] ?? null;
+        $user = User::where("email", $username)->first() ?? null;
         if (!$user) throwErr(["email" => "Email not found"]);
 
         //set a temporary random password and reset user password
@@ -80,7 +80,7 @@ class UsersController extends Controller {
             //subject
             "Your Password has been reset", 
             //body
-            "This is your new password: ".$password, 
+            "This is your new password: $password", 
             //recepient email
             $user->email,
             'leaf@api.com'
@@ -95,7 +95,7 @@ class UsersController extends Controller {
         $user_id = $this->auth->useToken() ?? throwErr($this->auth->errors());
         $password = requestData("password");
         //Change the password if logged and type right password
-        $user = User::where("user_id", $user_id)->where("password", $password)->get()[0] ?? null;
+        $user = User::where("id", $user_id)->where("password", $password)->get()[0] ?? null;
         if (!$user) throwErr(["message" => "Something went wrong"]);
         //change the user password
         $user->password = md5($password);
@@ -107,7 +107,7 @@ class UsersController extends Controller {
             "password" => $user->password
         ], "md5");
         
-        if (!$user) $this->throwErr(["message" => "Something went wrong."]);
+        if (!$user) throwErr(["message" => "Something went wrong."]);
 
         respond($user);
     }
@@ -116,7 +116,7 @@ class UsersController extends Controller {
     public function user(){
         // make sure user is logged in
         $payload = $this->auth->validateToken();
-        if (!$payload) $this->throwErr($this->auth->errors());
+        if (!$payload) throwErr($this->auth->errors());
 
         $user_id = $payload->user_id;
 
@@ -128,7 +128,6 @@ class UsersController extends Controller {
     {
         $user_id = $this->auth->useToken() ?? throwErr($this->auth->errors());
 
-        
         $user = User::find($user_id);
         foreach(requestBody() as $item => $value) {
             $user->{$item} = $value;
