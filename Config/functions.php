@@ -48,16 +48,26 @@ if (!function_exists('fs')) {
 }
 
 if (!function_exists('json')) {
-	function json($data, $code = 200)
+	/**
+	 * json uses Leaf's now `json` method
+	 * 
+	 * json() packs in a bunch of functionality and customization into one method
+	 * 
+	 * @param array|string|object $data The data to output
+	 * @param int $code HTTP Status code for response, it's set in header
+	 * @param bool $showCode Show response code in response body?
+	 * @param bool $useMessage Show code meaning instead of int in response body?
+	 */
+	function json($data, int $code = 200, bool $showCode = false, bool $useMessage = false)
 	{
-		app()->response->respondWithCode($data, $code);
+		app()->response()->json($data, $code, $showCode, $useMessage);
 	}
 }
 
 if (!function_exists('markup')) {
 	function markup($data)
 	{
-		app()->response->renderMarkup($data);
+		app()->response()->markup($data);
 	}
 }
 
@@ -78,29 +88,35 @@ if (!function_exists('render')) {
 if (!function_exists('requestBody')) {
 	function requestBody($safeOutput = true)
 	{
-		return app()->request->body($safeOutput);
+		return app()->request()->body($safeOutput);
 	}
 }
 
 if (!function_exists('requestData')) {
 	function requestData($param, $safeOutput = true, $assoc = false)
 	{
-		$data = app()->request->get($param, $safeOutput);
+		$data = app()->request()->get($param, $safeOutput);
 		return $assoc && is_array($data) ? array_values($data) : $data;
 	}
 }
 
 if (!function_exists('respond')) {
+	/**
+	 * Output neatly parsed json [DEPRECATION WARNING: USE `json()` INSTEAD]
+	 */
 	function respond($data)
 	{
-		app()->response->respond($data);
+		app()->response()->respond($data);
 	}
 }
 
 if (!function_exists('respondWithCode')) {
-	function respondWithCode($data, $code = 500)
+	/**
+	 * Output json encoded data with an HTTP code/message [DEPRECATION WARNING: USE `json()` INSTEAD]
+	 */
+	function respondWithCode($data, $code = 200, bool $useMessage = false)
 	{
-		app()->response->respondWithCode($data, $code);
+		app()->response()->respondWithCode($data, $code, $useMessage);
 	}
 }
 
@@ -112,7 +128,7 @@ if (!function_exists('Route')) {
 }
 
 if (!function_exists('setHeader')) {
-	function setHeader($key, $value = "", $replace = true, $code = 500)
+	function setHeader($key, $value = "", $replace = true, $code = 200)
 	{
 		app()->headers()->set($key, $value, $replace, $code);
 	}
@@ -126,9 +142,9 @@ if (!function_exists('singular')) {
 }
 
 if (!function_exists('throwErr')) {
-	function throwErr($error, int $code = 200, bool $use_message = false)
+	function throwErr($error, int $code = 200, bool $useMessage = false)
 	{
-		app()->response->throwErr($error, $code, $use_message);
+		app()->response()->throwErr($error, $code, $useMessage);
 	}
 }
 

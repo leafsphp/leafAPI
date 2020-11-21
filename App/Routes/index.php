@@ -9,9 +9,7 @@
 |
 */
 $app->set404(function () {
-	respondWithCode([
-		"data" => "Resource not found",
-	], 404);
+	json("Resource not found", 404, true);
 });
 
 /*
@@ -26,12 +24,13 @@ $app->set404(function () {
 $app->setNamespace("\App\Controllers");
 
 $app->get("/", function () {
-	respondWithCode("Congrats!! You're on Leaf API", 200);
+	json("Congrats!! You're on Leaf API", 200);
 });
 
 // From v1.1, you can use this Route method anywhere in your app
 // This links to the login method of the UsersController
-//Route("POST", "/login", "UsersController@login");
+// Route("POST", "/login", "UsersController@login");
 
-// you can also require an independent route file
+// You can define your routes here directly or
+// import an independent route file
 require "_users.php";
