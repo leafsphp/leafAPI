@@ -13,10 +13,16 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User();
-        $user->name = 'Mychi';
-        $user->email = "mickdd22@gmail.com";
-        $user->password = md5("password.demo");
-        $user->save();
+        // $user = new User();
+        // $user->name = 'Mychi';
+        // $user->email = "mickdd22@gmail.com";
+        // $user->password = md5("password.demo");
+        // $user->save();
+
+        // factory(App\User::class, 50)->create()->each(function ($user) {
+        //     $user->posts()->save(factory(App\Post::class)->make());
+        // });
+
+        User::factory()->times(50)->create();
     }
 }

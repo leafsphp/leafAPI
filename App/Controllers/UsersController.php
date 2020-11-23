@@ -105,9 +105,8 @@ class UsersController extends Controller
         // useToken retrieves the JWT from the headers, decodes it and returns
         // the user encoded into the token. If there's a problem with the token,
         // we can throw whatever error occurs. This means the user must be logged in.
-        $user = $this->auth->useToken() ?? throwErr($this->auth->errors());
+        $userId = $this->auth->useToken() ?? throwErr($this->auth->errors());        
         $password = requestData("password");
-        $userId = $user["id"];
 
         // Get the 
         $user = User::find($userId);
@@ -126,16 +125,17 @@ class UsersController extends Controller
 
     public function user(){
         // Make sure user is logged in
-        $user = $this->auth->useToken() ?? throwErr($this->auth->errors());
+        // $auth->user() is new in v2.4 of leaf
+        $user = $this->auth->user() ?? throwErr($this->auth->errors());
 
-        json(User::find($user["id"]));
+        json($user);
     }
 
     public function edit()
     {
-        $user = $this->auth->useToken() ?? throwErr($this->auth->errors());
+        $userId = $this->auth->useToken() ?? throwErr($this->auth->errors());
 
-        $user = User::find($user["id"]);
+        $user = User::find($userId);
         // requestBody returns a key value pair of all items passed into the request
         foreach(requestBody() as $item => $value) {
             $user->{$item} = $value;
