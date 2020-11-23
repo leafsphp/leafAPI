@@ -23,10 +23,12 @@ class Console {
 		$this->app->add(new \Config\Command\GenerateControllerCommand());
 		$this->app->add(new \Config\Command\GenerateSeedCommand());
 		$this->app->add(new \Config\Command\GenerateConsoleCommand());
+		$this->app->add(new \Config\Command\GenerateFactoryCommand());
 
 		// Delete Commands
 		$this->app->add(new \Config\Command\DeleteModelCommand());
 		$this->app->add(new \Config\Command\DeleteSeedCommand());
+		$this->app->add(new \Config\Command\DeleteFactoryCommand());
 		$this->app->add(new \Config\Command\DeleteControllerCommand());
 		$this->app->add(new \Config\Command\DeleteConsoleCommand());
 

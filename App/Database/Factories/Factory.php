@@ -90,7 +90,7 @@ abstract class Factory
 
 			return true;
 		} catch (\Throwable $th) {
-			return $th;
+			throw $th;
 		}
 	}
 

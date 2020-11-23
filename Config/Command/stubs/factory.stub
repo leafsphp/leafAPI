@@ -3,20 +3,21 @@
 namespace App\Database\Factories;
 
 // model to be used in factory
-use App\Models\User;
+use App\Models\ModelName;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class ClassName extends Factory
 {
 	// If this model property isn't defined, Leaf will
 	// try to generate the model name from the factory name
-	public $model = User::class;
+	public $model = ModelName::class;
 
 	public function definition()
 	{
+		// faker is already registered in the factory
+		// it can be accessed wit $this->faker
 		return [
-			'username' => strtolower($this->faker->firstName),
 			'name' => $this->faker->name,
 			'email' => $this->faker->unique()->safeEmail,
 			'email_verified_at' => Carbon::now(),

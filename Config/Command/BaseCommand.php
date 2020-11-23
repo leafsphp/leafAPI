@@ -52,4 +52,9 @@ class BaseCommand
     {
         return dirname(dirname(__DIR__)) . helpers_path($file);
     }
+
+    public static function factories_path($file = null)
+    {
+        return dirname(dirname(__DIR__)) . factories_path($file);
+    }
 }

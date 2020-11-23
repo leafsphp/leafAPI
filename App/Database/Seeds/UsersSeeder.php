@@ -22,7 +22,7 @@ class UsersSeeder extends Seeder
         // $user->save();
 
         // You can also use factories like this
-        (new UserFactory)->create(20)->save();
+        (new UserFactory)->create(5)->save();
 
         // even better, you can use them together :-)
     }
