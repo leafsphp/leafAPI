@@ -23,6 +23,11 @@ class BaseCommand
         return [$dirname, $filename];
     }
 
+    public static function rootpath($file = null)
+    {
+        return dirname(dirname(__DIR__)) . "/$file";
+    }
+
     public static function controllers_path($file = null)
     {
         return dirname(dirname(__DIR__)) . controllers_path($file);

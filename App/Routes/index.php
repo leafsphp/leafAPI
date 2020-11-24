@@ -26,7 +26,8 @@ $app->setNamespace("\App\Controllers");
 
 // $app is the instance of Leaf
 $app->get("/", function () {
-	json("Congrats!! You're on Leaf API", 200);
+	// json("Congrats!! You're on Leaf API", 200);
+	// json(app()->logWriter);
 });
 
 $app->get("/app", function () use ($app) {

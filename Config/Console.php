@@ -15,6 +15,8 @@ class Console {
 		// Random Commands
 		$this->app->add(new \Config\Command\ServerCommand());
 		$this->app->add(new \Config\Command\ConsoleCommand());
+		$this->app->add(new \Config\Command\AppDownCommand());
+		$this->app->add(new \Config\Command\AppUpCommand());
 
 		// Generate Commands
 		$this->app->add(new \Config\Command\GenerateMigrationCommand());
