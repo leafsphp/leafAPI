@@ -12,6 +12,8 @@ use App\Models\User;
  */
 class UsersController extends Controller
 {
+    // refer to base controller to find package initialization
+    // and auth settings
     public function login()
     {
         // requestData is a shortcut method which allows
@@ -30,8 +32,10 @@ class UsersController extends Controller
         // a jwt automatically
         $user = $this->auth->login("users", [
             "username" => $username,
-            "password" => md5($password)
+            "password" => $password
         ]);
+
+        // password encoding has been configured in the base controller
 
         // This line catches any errors that MAY happen
         if (!$user) throwErr($this->auth->errors());
@@ -49,7 +53,6 @@ class UsersController extends Controller
 
         // You can also directly pick vars from the request object
         $credentials = requestData(["username", "email", "password"]);
-        $credentials["password"] = md5($credentials["password"]);
 
         // You can validate your data with Leaf Form Validation
         $validation = $this->form->validate([
@@ -102,10 +105,10 @@ class UsersController extends Controller
 
     public function reset_password()
     {
-        // useToken retrieves the JWT from the headers, decodes it and returns
+        // id retrieves the JWT from the headers, decodes it and returns
         // the user encoded into the token. If there's a problem with the token,
         // we can throw whatever error occurs. This means the user must be logged in.
-        $userId = $this->auth->useToken() ?? throwErr($this->auth->errors());        
+        $userId = $this->auth->id() ?? throwErr($this->auth->errors());        
         $password = requestData("password");
 
         // Get the 
@@ -123,25 +126,33 @@ class UsersController extends Controller
         json($user);
     }
 
-    public function user(){
+    public function user() {
+        // fields to hide from user list
+        $hidden = ["id", "remember_token", "password"];
+
         // Make sure user is logged in
         // $auth->user() is new in v2.4 of leaf
-        $user = $this->auth->user() ?? throwErr($this->auth->errors());
+        $user = $this->auth->user("users", $hidden);
 
-        json($user);
+        json($user ?? throwErr($this->auth->errors()));
     }
 
     public function edit()
     {
-        $userId = $this->auth->useToken() ?? throwErr($this->auth->errors());
+        // auth->id returns the user id encoded into jwt by default
+        $userId = $this->auth->id() ?? throwErr($this->auth->errors());
 
-        $user = User::find($userId);
-        // requestBody returns a key value pair of all items passed into the request
-        foreach(requestBody() as $item => $value) {
-            $user->{$item} = $value;
-        }
-        $user->save();
+        // data to update
+        $data = requestData(["username", "email", "password"]);
 
-        json($user);
+        // data to find user by
+        $where = ["id" => $userId];
+
+        // params which shouldn't already exist in db
+        $uniques = ["username"];
+
+        $user = $this->auth->update("users", $data, $where, $uniques);
+
+        json($user ?? throwErr($this->auth->errors()));
     }
 }

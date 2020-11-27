@@ -15,5 +15,5 @@ $app->mount("/auth", function() use($app) {
 // Demo User routes
 $app->mount("/user", function() use($app) {
     $app->get("/", "UsersController@user");
-	$app->post("/update", "UsersController@update");
+	$app->post("/update", "UsersController@edit");
 });

@@ -18,9 +18,14 @@ class Controller extends \Leaf\ApiController {
 		// In this version, request isn't initialised for you. You can use
 		// requestData() to get request data or initialise it yourself
 		$this->auth = new Auth;
-		$this->auth->auto_connect();
+		$this->auth->autoConnect();
 		
 		// set default token expiry time
-		// $this->auth->tokenLifetime(60 * 60 * 24 * 365);
+		$this->auth->tokenLifetime(60 * 60 * 24 * 365);
+
+		// You can configure auth to get additional customizations
+		$this->auth->config("PASSWORD_ENCODE", function ($password) {
+			return md5($password);
+		});
     }
 }
