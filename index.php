@@ -51,7 +51,7 @@ $app = new Leaf\App;
 | CORS errors at you.
 |
 */
-$app->response->cors();
+$app->evadeCors(false);
 
 /*
 |--------------------------------------------------------------------------

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6019ff9fcce066a662f6469f72e29a6b",
+    "content-hash": "7b17d90e562fbf5232a8e4ff1fc69faf",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -965,16 +965,16 @@
         },
         {
             "name": "leafs/leaf",
-            "version": "v2.3.0",
+            "version": "v2.4.0-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafsphp/leaf.git",
-                "reference": "db24108c7350810c19185408dd3f0ce854be95fb"
+                "reference": "66bacca53e76bdfb4753f14f0b07f277f08a230f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafsphp/leaf/zipball/db24108c7350810c19185408dd3f0ce854be95fb",
-                "reference": "db24108c7350810c19185408dd3f0ce854be95fb",
+                "url": "https://api.github.com/repos/leafsphp/leaf/zipball/66bacca53e76bdfb4753f14f0b07f277f08a230f",
+                "reference": "66bacca53e76bdfb4753f14f0b07f277f08a230f",
                 "shasum": ""
             },
             "require": {
@@ -1013,7 +1013,13 @@
                 "rest",
                 "router"
             ],
-            "time": "2020-08-15T19:40:15+00:00"
+            "funding": [
+                {
+                    "url": "https://opencollective.com/leaf",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2020-11-30T17:44:58+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -2832,7 +2838,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "leafs/leaf": 10
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
