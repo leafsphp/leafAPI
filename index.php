@@ -40,7 +40,7 @@ require __DIR__. "/Config/bootstrap.php";
 | Plant a seed, grow the stem and return Leaf🤷‍
 |
 */
-$app = new Leaf\App();
+$app = new Leaf\App;
 
 /*
 |--------------------------------------------------------------------------

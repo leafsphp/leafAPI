@@ -31,7 +31,7 @@ class AppDownCommand extends Command
         $file = BaseCommand::rootpath("index.php");
         $fileContent = file_get_contents($file);
         $fileContent = str_replace(
-            '$app = new Leaf\App;',
+            ['$app = new Leaf\App;', '$app = new Leaf\App();'],
             '$app = new Leaf\App(["mode" => "down"]);',
             $fileContent
         );

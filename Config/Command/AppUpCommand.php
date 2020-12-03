@@ -31,7 +31,7 @@ class AppUpCommand extends Command
         $index = BaseCommand::rootpath("index.php");
         $indexContent = file_get_contents($index);
         $indexContent = str_replace(
-            '["mode" => "down"]',
+            ['(["mode" => "down"])', '["mode" => "down"]'],
             '',
             $indexContent
         );
