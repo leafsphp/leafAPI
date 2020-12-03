@@ -19,10 +19,6 @@ class AppUpCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (!env("APP_DOWN")) {
-            return $output->writeln("<comment>App isn't in down mode...</comment>");
-        }
-
         $env = BaseCommand::rootpath(".env");
         $envContent = file_get_contents($env);
         $envContent = str_replace(
@@ -32,14 +28,14 @@ class AppUpCommand extends Command
         );
         file_put_contents($env, $envContent);
 
-        $file = BaseCommand::rootpath("index.php");
-        $fileContent = file_get_contents($file);
-        $fileContent = str_replace(
-            '$app = new Leaf\App(["mode" => "down"]);',
-            '$app = new Leaf\App;',
-            $fileContent
+        $index = BaseCommand::rootpath("index.php");
+        $indexContent = file_get_contents($index);
+        $indexContent = str_replace(
+            '["mode" => "down"]',
+            '',
+            $indexContent
         );
-        file_put_contents($file, $fileContent);
+        file_put_contents($index, $indexContent);
 
         $output->writeln("<comment>App is now out of down mode...</comment>");
     }

@@ -19,10 +19,6 @@ class AppDownCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (env("APP_DOWN")) {
-            return $output->writeln("<comment>App already in down mode...</comment>");
-        }
-
         $env = BaseCommand::rootpath(".env");
         $envContent = file_get_contents($env);
         $envContent = str_replace(
