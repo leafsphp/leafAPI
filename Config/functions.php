@@ -1,5 +1,8 @@
 <?php
 if (!function_exists('app')) {
+	/**
+	 * Return the Leaf instance
+	 */
 	function app()
 	{
 		global $app;
@@ -8,6 +11,9 @@ if (!function_exists('app')) {
 }
 
 if (!function_exists('d')) {
+	/**
+	 * Return Leaf's date object
+	 */
 	function d()
 	{
 		return app()->date;
@@ -15,14 +21,28 @@ if (!function_exists('d')) {
 }
 
 if (!function_exists('dbRow')) {
+	/**
+	 * Return a db row by it's id
+	 * 
+	 * @param string $table The table to find row
+	 * @param string|int $row_id The row's id
+	 * @param string $columns The columns to get
+	 * 
+	 * @return array|null The database field
+	 */
 	function dbRow($table, $row_id, $columns = "*")
 	{
-		app()->db->auto_connect();
-		return app()->db->select($table, $columns)->where("id", $row_id)->fetchAll();
+		app()->db()->autoConnect();
+		return app()->db()->select($table, $columns)->where("id", $row_id)->fetchAll();
 	}
 }
 
 if (!function_exists('email')) {
+	/**
+	 * Write and send an email
+	 * 
+	 * @param array $email The email block to write and send
+	 */
 	function email(array $email)
 	{
 		$mail = new \Leaf\Mail;
@@ -41,6 +61,9 @@ if (!function_exists('email')) {
 }
 
 if (!function_exists('fs')) {
+	/**
+	 * Return Leaf's FS object
+	 */
 	function fs()
 	{
 		return app()->fs;
@@ -65,9 +88,15 @@ if (!function_exists('json')) {
 }
 
 if (!function_exists('markup')) {
-	function markup($data)
+	/**
+	 * Output markup as response
+	 * 
+	 * @param string $data The markup to output
+	 * @param int $code The http status code
+	 */
+	function markup($data, $code = 200)
 	{
-		app()->response()->markup($data);
+		app()->response()->markup($data, $code);
 	}
 }
 
@@ -85,42 +114,64 @@ if (!function_exists('render')) {
 	}
 }
 
+if (!function_exists('request')) {
+	/**
+	 * Return request or request data
+	 * 
+	 * @param bool $data — Get data from request
+	 */
+	function request($data = null)
+	{
+		if ($data) return app()->request()->get($data);
+		return app()->request();
+	}
+}
+
 if (!function_exists('requestBody')) {
+	/**
+	 * Get request body
+	 * 
+	 * @param bool $safeData — Sanitize output
+	 */
 	function requestBody($safeOutput = true)
 	{
-		return app()->request()->body($safeOutput);
+		return request()->body($safeOutput);
 	}
 }
 
 if (!function_exists('requestData')) {
+	/**
+	 * Get request data
+	 * 
+	 * @param string|array $param The item(s) to get from request
+	 * @param bool $safeData — Sanitize output
+	 */
 	function requestData($param, $safeOutput = true, $assoc = false)
 	{
-		$data = app()->request()->get($param, $safeOutput);
+		$data = request()->get($param, $safeOutput);
 		return $assoc && is_array($data) ? array_values($data) : $data;
 	}
 }
 
-if (!function_exists('respond')) {
+if (!function_exists('response')) {
 	/**
-	 * Output neatly parsed json [DEPRECATION WARNING: USE `json()` INSTEAD]
+	 * Return response or set response data
+	 * 
+	 * @param bool $data — The JSON response to set
 	 */
-	function respond($data)
+	function response($data = null)
 	{
-		app()->response()->respond($data);
-	}
-}
-
-if (!function_exists('respondWithCode')) {
-	/**
-	 * Output json encoded data with an HTTP code/message [DEPRECATION WARNING: USE `json()` INSTEAD]
-	 */
-	function respondWithCode($data, $code = 200, bool $useMessage = false)
-	{
-		app()->response()->respondWithCode($data, $code, $useMessage);
+		if ($data) return app()->response()->json($data);
+		return app()->response();
 	}
 }
 
 if (!function_exists('Route')) {
+	/**
+	 * @param string The request method(s)
+	 * @param string The route to handle
+	 * @param callable|string The handler for the route
+	 */
 	function Route($methods, $pattern, $fn)
 	{
 		app()->match($methods, $pattern, $fn);
@@ -128,6 +179,14 @@ if (!function_exists('Route')) {
 }
 
 if (!function_exists('setHeader')) {
+	/**
+	 * Set a response header
+	 * 
+	 * @param string|array $key The header key
+	 * @param string $value Header value
+	 * @param bool $replace Replace header if exists
+	 * @param mixed|null $code Status code
+	 */
 	function setHeader($key, $value = "", $replace = true, $code = 200)
 	{
 		app()->headers()->set($key, $value, $replace, $code);
@@ -142,6 +201,11 @@ if (!function_exists('singular')) {
 }
 
 if (!function_exists('throwErr')) {
+	/**
+	 * @param mixed $error The error to output
+	 * @param int $code Http status code
+	 * @param bool $useMessage Use message in response body
+	 */
 	function throwErr($error, int $code = 200, bool $useMessage = false)
 	{
 		app()->response()->throwErr($error, $code, $useMessage);
@@ -149,6 +213,13 @@ if (!function_exists('throwErr')) {
 }
 
 if (!function_exists('view')) {
+	/**
+	 * Return a blade view
+	 * 
+	 * @param string $view The view to return
+	 * @param array $data Data to pass into app
+	 * @param array $mergeData
+	 */
 	function view(string $view, array $data = [], array $mergeData = [])
 	{
 		app()->blade->configure(views_path(), storage_path("framework/views"));

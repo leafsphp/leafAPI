@@ -89,6 +89,14 @@ function helpers_path($path = null)
 }
 
 /**
+ * Helpers directory path
+ */
+function lib_path($path = null)
+{
+	return "/Lib/$path";
+}
+
+/**
  * Public directory path
  */
 function public_path($path = null)
