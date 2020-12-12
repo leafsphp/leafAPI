@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b17d90e562fbf5232a8e4ff1fc69faf",
+    "content-hash": "f81249f1324570bd6e1baf2c9714005f",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -909,6 +909,55 @@
             "description": "Highlight PHP code in terminal",
             "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "leafs/aloe",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafsphp/aloe.git",
+                "reference": "9769905fb423700bedda89a740c1209590e231ee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leafsphp/aloe/zipball/9769905fb423700bedda89a740c1209590e231ee",
+                "reference": "9769905fb423700bedda89a740c1209590e231ee",
+                "shasum": ""
+            },
+            "require": {
+                "psy/psysh": "^0.9.9",
+                "symfony/console": "^4.3.4",
+                "vlucas/phpdotenv": "^3.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Aloe\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Darko",
+                    "email": "mickdd22@gmail.com",
+                    "homepage": "https://mychi.netlify.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Overpowered command line tool for your leaf apps.",
+            "homepage": "https://leafphp.netlify.app/#/",
+            "keywords": [
+                "cli",
+                "framework",
+                "leaf",
+                "php",
+                "rest",
+                "router"
+            ],
+            "time": "2020-12-12T01:57:20+00:00"
         },
         {
             "name": "leafs/blade",
@@ -2839,7 +2888,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "leafs/leaf": 10
+        "leafs/leaf": 10,
+        "leafs/aloe": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

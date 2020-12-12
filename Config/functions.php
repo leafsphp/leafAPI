@@ -118,7 +118,7 @@ if (!function_exists('request')) {
 	/**
 	 * Return request or request data
 	 * 
-	 * @param bool $data — Get data from request
+	 * @param array|string $data — Get data from request
 	 */
 	function request($data = null)
 	{
@@ -157,7 +157,7 @@ if (!function_exists('response')) {
 	/**
 	 * Return response or set response data
 	 * 
-	 * @param bool $data — The JSON response to set
+	 * @param array|string $data — The JSON response to set
 	 */
 	function response($data = null)
 	{
@@ -206,7 +206,7 @@ if (!function_exists('throwErr')) {
 	 * @param int $code Http status code
 	 * @param bool $useMessage Use message in response body
 	 */
-	function throwErr($error, int $code = 200, bool $useMessage = false)
+	function throwErr($error, int $code = 500, bool $useMessage = false)
 	{
 		app()->response()->throwErr($error, $code, $useMessage);
 	}

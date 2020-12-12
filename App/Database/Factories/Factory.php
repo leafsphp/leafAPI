@@ -71,21 +71,25 @@ abstract class Factory
 	 * 
 	 * @return true|Throwable
 	 */
-	public function save($model = null, $useCreate = false)
+	public function save($override = null)
 	{
-		$model = $model ?? $this->model ?? $this->getModelName();
+		$model = $this->model ?? $this->getModelName();
+
+		if (count($this->data) === 0) {
+			$this->data[] = $this->definition();
+		}
 		
 		try {
 			foreach ($this->data as $item) {
-				if ($useCreate) {
-					$model::create($item);
-				} else {
-					$model = new $model;
-					foreach ($item as $key => $value) {
-						$model->{$key} = $value;
-					}
-					$model->save();
+				if ($override) {
+					$item = array_merge($item, $override);
 				}
+
+				$model = new $model;
+				foreach ($item as $key => $value) {
+					$model->{$key} = $value;
+				}
+				$model->save();
 			}
 
 			return true;

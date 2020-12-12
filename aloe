@@ -25,6 +25,16 @@ require __DIR__.'/Config/bootstrap.php';
 
 /*
 |--------------------------------------------------------------------------
+| Initialise App paths
+|--------------------------------------------------------------------------
+|
+| These is the Leaf MVC directory configuration.
+|
+*/
+require __DIR__ . "/Config/paths.php";
+
+/*
+|--------------------------------------------------------------------------
 | Bring in (env)
 |--------------------------------------------------------------------------
 |
@@ -35,13 +45,23 @@ require __DIR__.'/Config/bootstrap.php';
 
 /*
 |--------------------------------------------------------------------------
-| Initialise Leaf Console
+| Initialise Aloe
 |--------------------------------------------------------------------------
 |
-| Initialise pre-defined console commands
+| Initialise aloe cli
 |
 */
-$console = new \Config\Console;
+$console = new \Aloe\Console;
+
+/*
+|--------------------------------------------------------------------------
+| Load Aloe Commands
+|--------------------------------------------------------------------------
+|
+| Load default aloe cli commands
+|
+*/
+$console->load();
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +71,7 @@ $console = new \Config\Console;
 | If you have a new command to add to Leaf
 |
 */
-$console->registerCustom(\App\Console\ExampleCommand::class);
+$console->register(\App\Console\ExampleCommand::class);
 
 /*
 |--------------------------------------------------------------------------

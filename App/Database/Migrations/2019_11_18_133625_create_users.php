@@ -3,6 +3,7 @@
 namespace App\Database\Migrations;
 
 use Leaf\Database;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateUsers extends Database {
 	/**
@@ -12,7 +13,7 @@ class CreateUsers extends Database {
 	 */
 	public function up()  {
 		if(!$this->capsule::schema()->hasTable("users")):
-			$this->capsule::schema()->create("users", function ($table) {
+			$this->capsule::schema()->create("users", function (Blueprint $table) {
 				$table->increments('id');
 				$table->string('username');
 				$table->string('name')->nullable();
