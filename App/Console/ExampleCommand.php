@@ -1,6 +1,8 @@
 <?php
 namespace App\Console;
 
+use Aloe\Command;
+
 class ExampleCommand extends Command
 {
     public $name = "example";
