@@ -51,17 +51,17 @@ require __DIR__ . "/Config/paths.php";
 | Initialise aloe cli
 |
 */
-$console = new \Aloe\Console;
+$console = new \Aloe\Console("Leaf API", "v2.0");
 
 /*
 |--------------------------------------------------------------------------
-| Load Aloe Commands
+| Configure Aloe
 |--------------------------------------------------------------------------
 |
-| Load default aloe cli commands
+| Set aloe environment to Leaf API
 |
 */
-$console->load();
+\Aloe\Command\Config::$env = "API";
 
 /*
 |--------------------------------------------------------------------------

@@ -19,13 +19,13 @@
         }
     ],
     "require": {
+        "leafs/leaf": "^2.4.0-beta",
+        "leafs/aloe": "dev-master",
         "doctrine/dbal": "^2.9",
         "illuminate/console": "^6.3",
-        "leafs/leaf": "^2.4.0-beta",
         "psy/psysh": "^0.9.9",
         "symfony/console": "^4.3",
-        "vlucas/phpdotenv": "^3.6",
-        "leafs/aloe": "dev-master"
+        "vlucas/phpdotenv": "^3.6"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
