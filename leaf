@@ -48,7 +48,7 @@ require __DIR__ . "/Config/paths.php";
 | Initialise Aloe
 |--------------------------------------------------------------------------
 |
-| Initialise aloe cli
+| Initialise aloe cli and register default commands.
 |
 */
 $console = new \Aloe\Console("Leaf API", "v2.0");
