@@ -2,7 +2,7 @@
 
 namespace App\Database\Factories;
 
-// model to be used in factory
+use Leaf\Factory;
 use App\Models\User;
 use Illuminate\Support\Str;
 
