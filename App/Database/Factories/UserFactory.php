@@ -2,9 +2,7 @@
 
 namespace App\Database\Factories;
 
-use Leaf\Factory;
 use App\Models\User;
-use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
@@ -12,6 +10,8 @@ class UserFactory extends Factory
 	// try to generate the model name from the factory name
 	public $model = User::class;
 
+	// You define your factory blueprint here
+	// It should return an associative array
 	public function definition()
 	{
 		return [
@@ -20,7 +20,8 @@ class UserFactory extends Factory
 			'email' => $this->faker->unique()->safeEmail,
 			'email_verified_at' => \Leaf\Date::now(),
 			'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-			'remember_token' => Str::random(10),
+			// $this->str is defined in the base factory
+			'remember_token' => $this->str::random(10),
 		];
 	}
 }
