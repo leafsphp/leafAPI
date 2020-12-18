@@ -3,12 +3,20 @@ namespace App\Controllers;
 
 // This is our model, we import it here to use it below
 use App\Models\User;
+use Leaf\Helpers\Password;
 
 /**
  * UsersController (Demo)
  * ---------------
  * This is a demo users controller put together to give
- * you an idea on basic features of leaf 
+ * you an idea on basic features of leaf. Each block is commented
+ * to help you understand exactly what's going on.
+ * 
+ * Some blocks can be used as alternatives depending on your preference,
+ * you can switch to those as you see fit.
+ * 
+ * Although a demo, it's a real controller and works correctly as is.
+ * You can continue your project like this or edit it to match your app.
  */
 class UsersController extends Controller
 {
@@ -19,7 +27,12 @@ class UsersController extends Controller
         // requestData is a shortcut method which allows
         // you get data passed into a request by key name
         // $username = requestData("username");
-        // $password = requestData("password");
+
+        // From v2, you can also use request()
+        // You can directly get parameters like this:
+        // $password = request("password");
+        // If you want to, you can perform some operation on the request object
+        // $password = request()->get("password");
 
         // You can also mass assign particular fields from the request 
         list($username, $password) = requestData(["username", "password"], true, true);
@@ -80,14 +93,16 @@ class UsersController extends Controller
 
     public function recover_account()
     {
-        $username = requestData("email");
+        $username = request("email");
 
         $user = User::where("email", $username)->first() ?? null;
         if (!$user) throwErr(["email" => "Email not found"]);
 
         // Set a temporary random password and reset user password
         $newPassword = rand(00000000, 99999999);
-        $user->password = md5($newPassword);
+
+        // hash new password (uses leaf password helper)
+        $user->password = Password::hash($newPassword);
         $user->save();
 
         // Send an email to user with the new temporary password
@@ -109,7 +124,7 @@ class UsersController extends Controller
         // the user encoded into the token. If there's a problem with the token,
         // we can throw whatever error occurs. This means the user must be logged in.
         $userId = $this->auth->id() ?? throwErr($this->auth->errors());        
-        $password = requestData("password");
+        $password = request("password");
 
         // Get the 
         $user = User::find($userId);
@@ -143,13 +158,13 @@ class UsersController extends Controller
         $userId = $this->auth->id() ?? throwErr($this->auth->errors());
 
         // data to update
-        $data = requestData(["username", "email", "password"]);
+        $data = request(["username", "email", "password"]);
 
         // data to find user by
         $where = ["id" => $userId];
 
         // params which shouldn't already exist in db
-        $uniques = ["username"];
+        $uniques = ["username", "email"];
 
         $user = $this->auth->update("users", $data, $where, $uniques);
 
