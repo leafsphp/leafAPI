@@ -20,6 +20,7 @@ class Factory extends Base
         // Just for demo purposes, str is assigned here
         // so you can use it in all your factories.
         $this->str = Str::class;
+        $this->faker = \Faker\Factory::create();
     }
 }
 
