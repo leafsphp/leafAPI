@@ -1,7 +1,7 @@
 <p align="center">
     <br><br>
     <img src="https://leaf-docs.netlify.app/images/logo.png" height="100"/>
-    <h1 align="center">Leaf API : reboot</h1>
+    <h1 align="center">Leaf API v2</h1>
     <br>
     <br><br><br>
 </p>
@@ -13,6 +13,8 @@
 # Leaf API
 
 Leaf API is a minimal MVC wrapper built on top of Leaf PHP which allows you to build APIs with Leaf, faster and simpler than ever before.
+
+v2 of leaf API packs in a ton of new features with enhanced usability for existing features. It also has better binding with other Leaf libraries as well as external libraries. Also since Leaf doesn't enforce particular systems like `Facades` in laravel, you can port in any valid PHP library and it should work fine.
 
 ## Installation
 
