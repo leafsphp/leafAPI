@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "leafs/leaf": "^2.4.0-beta",
+        "leafs/leaf": "^2.4",
         "leafs/aloe": "dev-master",
         "doctrine/dbal": "^2.9",
         "illuminate/console": "^6.3",
