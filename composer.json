@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "leafs/leaf": "^2.4",
+        "leafs/leaf": "^2.4.1",
         "leafs/aloe": "^1.0",
         "doctrine/dbal": "^2.9",
         "illuminate/console": "^6.3",
