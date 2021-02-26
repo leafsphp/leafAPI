@@ -14,7 +14,7 @@ class LoginController extends Controller
         // You can now call leaf form methods statically.
         // Leaf v2.4.2 includes a new rule method which allows you to create
         // your own form rules
-        Form::rule("max", function($field, $value, $params) {
+        Form::rule("max", function ($field, $value, $params) {
             if (strlen($value) > $params) {
                 Form::addError($field, "$field can't be more than $params characters");
                 return false;
