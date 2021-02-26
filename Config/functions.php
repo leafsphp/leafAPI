@@ -10,6 +10,22 @@ if (!function_exists('app')) {
 	}
 }
 
+if (!function_exists('auth')) {
+	/**
+	 * Return Leaf's auth object
+	 */
+	function auth($guard = null)
+	{
+		if (!$guard) return \Leaf\Auth::class;
+
+		if ($guard === 'session') {
+			return \Leaf\Auth::session();
+		}
+
+		return \Leaf\Auth::guard($guard);
+	}
+}
+
 if (!function_exists('d')) {
 	/**
 	 * Return Leaf's date object
@@ -70,6 +86,16 @@ if (!function_exists('fs')) {
 	}
 }
 
+if (!function_exists('hasAuth')) {
+	/**
+	 * Find out if there's an active sesion
+	 */
+	function hasAuth()
+	{
+		return !!sessionUser();
+	}
+}
+
 if (!function_exists('json')) {
 	/**
 	 * json uses Leaf's now `json` method
@@ -110,7 +136,11 @@ if (!function_exists('plural')) {
 if (!function_exists('render')) {
 	function render(string $view, array $data = [], array $mergeData = [])
 	{
-		markup(view($view, $data, $mergeData));
+		if (viewConfig("view_engine") === \Leaf\Blade::class) {
+			return markup(view($view, $data, $mergeData));
+		}
+
+		return viewConfig("render")($view, $data);
 	}
 }
 
@@ -178,6 +208,32 @@ if (!function_exists('Route')) {
 	}
 }
 
+if (!function_exists('session')) {
+	/**
+	 * Get a session variable or the session object
+	 * 
+	 * @param string|null $key The variable to get
+	 */
+	function session($key = null)
+	{
+		if ($key) {
+			return \Leaf\Http\Session::get($key);
+		}
+
+		return (new \Leaf\Http\Session);
+	}
+}
+
+if (!function_exists('sessionUser')) {
+	/**
+	 * Get the currently logged in user
+	 */
+	function sessionUser()
+	{
+		return session('AUTH_USER');
+	}
+}
+
 if (!function_exists('setHeader')) {
 	/**
 	 * Set a response header
@@ -222,9 +278,31 @@ if (!function_exists('view')) {
 	 */
 	function view(string $view, array $data = [], array $mergeData = [])
 	{
-		app()->blade->configure(views_path(), storage_path("framework/views"));
+		app()->blade->configure(viewConfig("views_path"), viewConfig("cache_path"));
 		return app()->blade->render($view, $data, $mergeData);
 	}
+}
+
+// Auth
+
+/**
+ * Get an auth configuration
+ */
+function AuthConfig($setting = null)
+{
+	$config = require __DIR__ . "/auth.php";
+	return !$setting ? $config : $config[$setting];
+}
+
+// Views
+
+/**
+ * Get view configuration
+ */
+function viewConfig($setting = null)
+{
+	$config = require __DIR__ . "/view.php";
+	return !$setting ? $config : $config[$setting];
 }
 
 // App paths as callable methods
@@ -242,7 +320,7 @@ function app_paths($path = null, bool $slash = false)
 /**
  * Views directory path
  */
-function views_path($path = null, bool $slash = false)
+function views_path($path = null, bool $slash = true)
 {
 	return app_paths("views_path", $slash) . "/$path";
 }

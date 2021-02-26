@@ -40,4 +40,8 @@ $app->get("/app", function () {
 
 // You can define your routes here directly or
 // import an independent route file
-require "_users.php";
+
+// Example authentication has been created for you to give you
+// an idea on working with this version of leaf. To get rid of all
+// the comments, simply run php leaf scaffold:auth --api
+require __DIR__ . "/_auth.php";

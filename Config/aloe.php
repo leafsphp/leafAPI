@@ -14,5 +14,5 @@ return [
         "commands_path" => "/App/Console",
         "routes_path" => "/App/Routes",
         "lib_path" => "/Lib",
-    ]
+    ],
 ];
