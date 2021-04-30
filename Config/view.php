@@ -11,7 +11,7 @@ return [
     | the usual LeafMVC view path has already been registered for you.
     |
     */
-    "views_path" => views_path(),
+    "views_path" => views_path("", false),
 
     /*
     |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ return [
     |
     */
     "cache_path" => storage_path('framework/views'),
-    
+
     /*
     |--------------------------------------------------------------------------
     | Template Engine [EXPERIMENTAL]
@@ -45,7 +45,7 @@ return [
     | in your app if you're using a custom view engine.
     |
     */
-    "render" => function(string $view, array $data = []) {
+    "render" => function (string $view, array $data = []) {
         $veins = new \Leaf\Veins\Template;
         $veins->configure([
             "veins_dir" => views_path(null, false),
