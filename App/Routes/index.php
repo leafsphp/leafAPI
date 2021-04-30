@@ -1,5 +1,7 @@
 <?php
 
+/**@var Leaf\App $app */
+
 /*
 |--------------------------------------------------------------------------
 | Set up 404 handler
@@ -14,6 +16,24 @@ $app->set404(function () {
 
 /*
 |--------------------------------------------------------------------------
+| Set up 500 handler
+|--------------------------------------------------------------------------
+|
+| Create a handler for error 500
+|
+*/
+$app->setErrorHandler(function ($e = null) use($app) {
+    if ($e) {
+        if ($app->config("log.enabled")) {
+            $app->logger()->error($e);
+        }
+    }
+
+    json("An error occured, our team has been notified", 500, true);
+});
+
+/*
+|--------------------------------------------------------------------------
 | Set up Controller namespace
 |--------------------------------------------------------------------------
 |
@@ -23,25 +43,6 @@ $app->set404(function () {
 */
 $app->setNamespace("\App\Controllers");
 
-
-// $app is the instance of Leaf
-$app->get("/", function () {
-	json(["message" => "Congrats!! You're on Leaf API"], 200);
-});
-
-$app->get("/app", function () {
-	// app() returns $app
-	json(app()->routes(), 200);
-});
-
-// From v1.1, you can use this Route method anywhere in your app
-// This links to the login method of the UsersController
-// Route("POST", "/login", "UsersController@login");
-
-// You can define your routes here directly or
-// import an independent route file
-
-// Example authentication has been created for you to give you
-// an idea on working with this version of leaf. To get rid of all
-// the comments, simply run php leaf scaffold:auth --api
+// You can break up routes into individual files
+require __DIR__ . "/_app.php";
 require __DIR__ . "/_auth.php";
