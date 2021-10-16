@@ -11,27 +11,18 @@
 | loading of any our classes "manually". Feels great to relax.
 |
 */
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
-| Register The Leaf Command Auto Loader
+| Load MVC Core
 |--------------------------------------------------------------------------
 |
-| Require all the files containing the Leaf Commands
+| MVC core provides Leaf's auto loading, configuration and shortcut
+| functions right off the bat.
 |
 */
-require __DIR__.'/Config/bootstrap.php';
-
-/*
-|--------------------------------------------------------------------------
-| Initialise App paths
-|--------------------------------------------------------------------------
-|
-| These is the Leaf MVC directory configuration.
-|
-*/
-require __DIR__ . "/Config/paths.php";
+Leaf\Core::paths(PathsConfig());
 
 /*
 |--------------------------------------------------------------------------
@@ -41,17 +32,32 @@ require __DIR__ . "/Config/paths.php";
 | Quickly use our environment variables
 |
 */
-\Dotenv\Dotenv::create(__DIR__)->load();
+try {
+    \Dotenv\Dotenv::create(__DIR__)->load();
+} catch (\Throwable $th) {
+    trigger_error($th);
+}
 
 /*
 |--------------------------------------------------------------------------
-| Initialise Aloe
+| Additional Leaf Database Config
 |--------------------------------------------------------------------------
 |
-| Initialise aloe cli and register default commands.
+| Load leaf database configuration
 |
 */
-$console = new \Aloe\Console("Leaf API", "v2.0");
+Leaf\Database::config(DatabaseConfig());
+Leaf\Database::connect();
+
+/*
+|--------------------------------------------------------------------------
+| Initialise Leaf CMD
+|--------------------------------------------------------------------------
+|
+| Initialise aloe CLI
+|
+*/
+$console = new \Aloe\Console("Leaf API", "v2.1");
 
 /*
 |--------------------------------------------------------------------------
@@ -65,10 +71,10 @@ $console = new \Aloe\Console("Leaf API", "v2.0");
 
 /*
 |--------------------------------------------------------------------------
-| Add custom command
+| Add commands
 |--------------------------------------------------------------------------
 |
-| If you have a new command to add to Leaf
+| Add custom commands
 |
 */
 $console->register(\App\Console\ExampleCommand::class);
