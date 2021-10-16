@@ -24,10 +24,6 @@ class UsersController extends Controller
     // and auth settings
     public function login()
     {
-        // requestData is a shortcut method which allows
-        // you get data passed into a request by key name
-        // $username = requestData("username");
-
         // From v2, you can also use request()
         // You can directly get parameters like this:
         // $password = request("password");
@@ -51,7 +47,7 @@ class UsersController extends Controller
         // password encoding has been configured in the base controller
 
         // This line catches any errors that MAY happen
-        if (!$user) request()->throwErr($this->auth->errors());
+        if (!$user) response()->throwErr($this->auth->errors());
 
         // json is another global shortcut method
         // it's shorter than $this->json()
@@ -60,9 +56,9 @@ class UsersController extends Controller
 
     public function register()
     {
-        // $username = requestData("username");
-        // $email = requestData("email");
-        // $password = requestData("password");
+        // $username = request("username");
+        // $email = request("email");
+        // $password = request("password");
 
         // You can also directly pick vars from the request object
         $credentials = request(["username", "email", "password"]);
@@ -75,7 +71,7 @@ class UsersController extends Controller
         ]);
 
         // Throws an error if there's an issue in validation
-        if (!$validation) request()->throwErr($this->form->errors());
+        if (!$validation) response()->throwErr($this->form->errors());
 
         // Direct registration with Leaf Auth. Registers and initiates a
         // login, so you don't have to call login again, unless you want
@@ -86,7 +82,7 @@ class UsersController extends Controller
         ]);
 
         // throw an auth error if there's an issue
-        if (!$user) request()->throwErr($this->auth->errors());
+        if (!$user) response()->throwErr($this->auth->errors());
 
         response($user);
     }
