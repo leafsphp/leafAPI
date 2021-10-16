@@ -11,7 +11,7 @@
 |
 */
 $app->set404(function () {
-	json("Resource not found", 404, true);
+	response()->json("Resource not found", 404, true);
 });
 
 /*
@@ -29,7 +29,7 @@ $app->setErrorHandler(function ($e = null) use($app) {
         }
     }
 
-    json("An error occured, our team has been notified", 500, true);
+    response()->json("An error occured, our team has been notified", 500, true);
 });
 
 /*

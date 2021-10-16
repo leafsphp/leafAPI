@@ -3,10 +3,10 @@
 /**@var Leaf\App $app */
 
 $app->get("/", function () {
-    json(["message" => "Congrats!! You're on Leaf API"], 200);
+    response(["message" => "Congrats!! You're on Leaf API"]);
 });
 
 $app->get("/app", function () {
     // app() returns $app
-    json(app()->routes(), 200);
+    response(app()->routes());
 });

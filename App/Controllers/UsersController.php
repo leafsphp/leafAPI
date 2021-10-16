@@ -11,10 +11,10 @@ use Leaf\Helpers\Password;
  * This is a demo users controller put together to give
  * you an idea on basic features of leaf. Each block is commented
  * to help you understand exactly what's going on.
- * 
+ *
  * Some blocks can be used as alternatives depending on your preference,
  * you can switch to those as you see fit.
- * 
+ *
  * Although a demo, it's a real controller and works correctly as is.
  * You can continue your project like this or edit it to match your app.
  */
@@ -34,8 +34,8 @@ class UsersController extends Controller
         // If you want to, you can perform some operation on the request object
         // $password = request()->get("password");
 
-        // You can also mass assign particular fields from the request 
-        list($username, $password) = requestData(["username", "password"], true, true);
+        // You can also mass assign particular fields from the request
+        list($username, $password) = request()->get(["username", "password"], true, true);
 
         // You can perform operations on your model like this
         $user = User::where("username", $username)->first();
@@ -51,11 +51,11 @@ class UsersController extends Controller
         // password encoding has been configured in the base controller
 
         // This line catches any errors that MAY happen
-        if (!$user) throwErr($this->auth->errors());
+        if (!$user) request()->throwErr($this->auth->errors());
 
         // json is another global shortcut method
         // it's shorter than $this->json()
-        json($user);
+        response($user);
     }
 
     public function register()
@@ -65,7 +65,7 @@ class UsersController extends Controller
         // $password = requestData("password");
 
         // You can also directly pick vars from the request object
-        $credentials = requestData(["username", "email", "password"]);
+        $credentials = request(["username", "email", "password"]);
 
         // You can validate your data with Leaf Form Validation
         $validation = $this->form->validate([
@@ -75,7 +75,7 @@ class UsersController extends Controller
         ]);
 
         // Throws an error if there's an issue in validation
-        if (!$validation) throwErr($this->form->errors());
+        if (!$validation) request()->throwErr($this->form->errors());
 
         // Direct registration with Leaf Auth. Registers and initiates a
         // login, so you don't have to call login again, unless you want
@@ -86,9 +86,9 @@ class UsersController extends Controller
         ]);
 
         // throw an auth error if there's an issue
-        if (!$user) throwErr($this->auth->errors());
+        if (!$user) request()->throwErr($this->auth->errors());
 
-        json($user);
+        response($user);
     }
 
     public function recover_account()
@@ -96,7 +96,7 @@ class UsersController extends Controller
         $username = request("email");
 
         $user = User::where("email", $username)->first() ?? null;
-        if (!$user) throwErr(["email" => "Email not found"]);
+        if (!$user) response()->throwErr(["email" => "Email not found"]);
 
         // Set a temporary random password and reset user password
         $newPassword = rand(00000000, 99999999);
@@ -115,7 +115,7 @@ class UsersController extends Controller
             "sender_name" => "API Name",
         ]);
 
-        json(["message" => "ok"]);
+        response()->json(["message" => "ok"]);
     }
 
     public function reset_password()
@@ -123,12 +123,12 @@ class UsersController extends Controller
         // id retrieves the JWT from the headers, decodes it and returns
         // the user encoded into the token. If there's a problem with the token,
         // we can throw whatever error occurs. This means the user must be logged in.
-        $userId = $this->auth->id() ?? throwErr($this->auth->errors());        
+        $userId = $this->auth->id() ?? response()->throwErr($this->auth->errors());
         $password = request("password");
 
-        // Get the 
+        // Get the
         $user = User::find($userId);
-        if (!$user) throwErr(["user" => "User not found! Check somewhere..."]);
+        if (!$user) response()->throwErr(["user" => "User not found! Check somewhere..."]);
 
         // Change the user password
         $user->password = md5($password);
@@ -136,9 +136,9 @@ class UsersController extends Controller
 
         // login again to get new token
         $user = $this->auth->login("users", ["id" => $userId]);
-        if (!$user) throwErr($this->auth->errors());
+        if (!$user) response()->throwErr($this->auth->errors());
 
-        json($user);
+        response()->json($user);
     }
 
     public function user() {
@@ -149,13 +149,13 @@ class UsersController extends Controller
         // $auth->user() is new in v2.4 of leaf
         $user = $this->auth->user("users", $hidden);
 
-        json($user ?? throwErr($this->auth->errors()));
+        response()->json($user ?? response()->throwErr($this->auth->errors()));
     }
 
     public function edit()
     {
         // auth->id returns the user id encoded into jwt by default
-        $userId = $this->auth->id() ?? throwErr($this->auth->errors());
+        $userId = $this->auth->id() ?? response()->throwErr($this->auth->errors());
 
         // data to update
         $data = request(["username", "email", "password"]);
@@ -168,6 +168,6 @@ class UsersController extends Controller
 
         $user = $this->auth->update("users", $data, $where, $uniques);
 
-        json($user ?? throwErr($this->auth->errors()));
+        response()->json($user ?? response()->throwErr($this->auth->errors()));
     }
 }

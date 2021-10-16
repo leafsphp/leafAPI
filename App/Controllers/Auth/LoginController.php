@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        list($username, $password) = requestData(["username", "password"], true, true);
+        list($username, $password) = request()->get(["username", "password"], true, true);
 
         // You can now call leaf form methods statically.
         // Leaf v2.4.2 includes a new rule method which allows you to create
@@ -31,7 +31,7 @@ class LoginController extends Controller
         ]);
 
         // if validation fails, throw the errors
-        if (!$validation) throwErr(Form::errors());
+        if (!$validation) response()->throwErr(Form::errors());
 
         // Simple logins with leaf auth. It takes in the table
         // to search for users in and the credentials to check
@@ -41,15 +41,15 @@ class LoginController extends Controller
         ]);
 
         // If user isn't found, show some errors
-        if (!$user) throwErr(Auth::errors());
+        if (!$user) response()->throwErr(Auth::errors());
 
-        json($user);
+        response()->json($user);
     }
 
     public function logout()
     {
         // If you use session with your tokens, you
         // might want to remove all the saved data here
-        json("Logged out successfully!");
+        response()->json("Logged out successfully!");
     }
 }

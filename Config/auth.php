@@ -112,18 +112,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Turn off experimental warnings
-    |--------------------------------------------------------------------------
-    |
-    | When experimental warnings are turned off, Leaf will ignore all features
-    | which have been tagged as experimental. To actually get the feature to
-    | work, follow the prompt in the warning. 
-    |
-    */
-    "EXPERIMENTAL_WARNINGS" => false,
-
-    /*
-    |--------------------------------------------------------------------------
     | Session on register
     |--------------------------------------------------------------------------
     |

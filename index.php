@@ -20,17 +20,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 | Quickly use our environment variables
 |
 */
-\Dotenv\Dotenv::create(__DIR__)->load();
-
-/*
-|--------------------------------------------------------------------------
-| Register The Leaf Auto Loader
-|--------------------------------------------------------------------------
-|
-| Require all Leaf API's Files
-|
-*/
-require __DIR__ . "/Config/bootstrap.php";
+try {
+    \Dotenv\Dotenv::create(__DIR__)->load();
+} catch (\Throwable $th) {
+    trigger_error($th);
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +62,16 @@ $app = new Leaf\App(AppConfig());
 
 /*
 |--------------------------------------------------------------------------
+| Load application paths
+|--------------------------------------------------------------------------
+|
+| Tell Leaf MVC Core where to locate application paths
+|
+*/
+Leaf\Core::paths(PathsConfig());
+
+/*
+|--------------------------------------------------------------------------
 | Default fix for CORS
 |--------------------------------------------------------------------------
 |
@@ -76,6 +80,16 @@ $app = new Leaf\App(AppConfig());
 |
 */
 $app->evadeCors(false);
+
+/*
+|--------------------------------------------------------------------------
+| Additional Leaf Database Config
+|--------------------------------------------------------------------------
+|
+| Load leaf database configuration
+|
+*/
+Leaf\Database::config(DatabaseConfig());
 
 /*
 |--------------------------------------------------------------------------

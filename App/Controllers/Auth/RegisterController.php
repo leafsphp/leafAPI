@@ -17,14 +17,14 @@ class RegisterController extends Controller
             "password" => "min:8"
         ]);
 
-        if (!$validation) throwErr(Form::errors());
+        if (!$validation) response()->throwErr(Form::errors());
 
         $user = Auth::register("users", $credentials, [
             "username", "email"
         ]);
 
-        if (!$user) throwErr(Auth::errors());
+        if (!$user) response()->throwErr(Auth::errors());
 
-        json($user);
+        response()->json($user);
     }
 }

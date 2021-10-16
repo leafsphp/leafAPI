@@ -11,9 +11,9 @@ class AccountController extends Controller
         // The second parameter holds items to hide from the user array.
         $user = Auth::user("users", ["password"]);
 
-        if (!$user) throwErr(Auth::errors());
+        if (!$user) response()->throwErr(Auth::errors());
 
-        json($user);
+        response()->json($user);
     }
 
     public function update()
@@ -48,8 +48,8 @@ class AccountController extends Controller
 
         $user = Auth::update("users", $data, $where, $uniques);
 
-        if (!$user) throwErr(Auth::errors());
+        if (!$user) response()->throwErr(Auth::errors());
 
-        json($user);
+        response()->json($user);
     }
 }
