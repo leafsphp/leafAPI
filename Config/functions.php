@@ -1,44 +1,5 @@
 <?php
 
-if (!function_exists('_env')) {
-    /**
-     * Gets the value of an environment variable.
-     *
-     * @param  string  $key
-     * @param  mixed  $default
-     * @return mixed
-     */
-    function _env($key, $default = null)
-    {
-        $item = getenv($key);
-
-        if (!isset($_ENV[$key]) || (isset($_ENV[$key]) && $_ENV[$key] == null)) {
-            $item = $default;
-        }
-
-        return $item;
-    }
-}
-
-if (!function_exists('app')) {
-    /**
-     * Return the Leaf instance
-     *
-     * @return Leaf\App
-     */
-    function app()
-    {
-        $app = Leaf\Config::get("app")["instance"] ?? null;
-
-        if (!$app) {
-            $app = new Leaf\App;
-            Leaf\Config::set("app", ["instance" => $app]);
-        }
-
-        return $app;
-    }
-}
-
 if (!function_exists('auth')) {
     /**
      * Return Leaf's auth object
@@ -135,32 +96,6 @@ if (!function_exists('hasAuth')) {
     }
 }
 
-if (!function_exists('request')) {
-    /**
-     * Return request or request data
-     *
-     * @param array|string $data — Get data from request
-     */
-    function request($data = null)
-    {
-        if ($data) return app()->request()->get($data);
-        return app()->request();
-    }
-}
-
-if (!function_exists('response')) {
-    /**
-     * Return response or set response data
-     *
-     * @param array|string $data — The JSON response to set
-     */
-    function response($data = null)
-    {
-        if ($data) return app()->response()->json($data);
-        return app()->response();
-    }
-}
-
 if (!function_exists('Route')) {
     /**
      * @param string The request method(s)
@@ -211,36 +146,5 @@ if (!function_exists('setHeader')) {
     function setHeader($key, $value = "", $replace = true, $code = 200)
     {
         app()->headers()->set($key, $value, $replace, $code);
-    }
-}
-
-if (!function_exists("view")) {
-    function view(string $view, array $data = [])
-    {
-        if (ViewConfig("render")) {
-            ViewConfig("config")([
-                "views_path" => AppConfig("views.path"),
-                "cache_path" => AppConfig("views.cachePath"),
-            ]);
-
-            return ViewConfig("render")($view, $data);
-        }
-
-        $engine = ViewConfig("view_engine");
-
-        $className = strtolower(get_class(new $engine));
-
-        $fullName = explode("\\", $className);
-        $className = $fullName[count($fullName) - 1];
-
-        if (forward_static_call_array(["Leaf\\View", $className], [])) {
-            forward_static_call_array(["Leaf\\View", $className], [])->configure(AppConfig("views.path"), AppConfig("views.cachePath"));
-            return forward_static_call_array(["Leaf\\View", $className], [])->render($view, $data);
-        }
-
-        $engine = new $engine($engine);
-        $engine->config(AppConfig("views.path"), AppConfig("views.cachePath"));
-
-        return $engine->render($view, $data);
     }
 }

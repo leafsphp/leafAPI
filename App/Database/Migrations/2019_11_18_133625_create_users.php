@@ -13,21 +13,21 @@ class CreateUsers extends Database {
 	 * @return void
 	 */
 	public function up()  {
-        // if (!static::$capsule::schema()->hasTable("users")):
-        // 	static::$capsule::schema()->create("users", function (Blueprint $table) {
-        //         $table->increments('id');
-        // 		$table->string('username');
-        // 		$table->string('name');
-        // 		$table->string('email')->unique();
-        // 		$table->timestamp('email_verified_at')->nullable();
-        // 		$table->string('password');
-        // 		$table->rememberToken();
-        // 		$table->timestamps();
-        // 	});
-        // endif;
+        if (!static::$capsule::schema()->hasTable("users")):
+        	static::$capsule::schema()->create("users", function (Blueprint $table) {
+             $table->increments('id');
+        		$table->string('username');
+        		$table->string('fullname');
+        		$table->string('email')->unique();
+        		$table->timestamp('email_verified_at')->nullable();
+        		$table->string('password');
+        		$table->rememberToken();
+        		$table->timestamps();
+        	});
+        endif;
 
-        // you can now build your migrations with schemas
-        Schema::build(static::$capsule, dirname(__DIR__) . "/Schema/users.json");
+        // you can now build your migrations with schemas [EXPERIMENTAL]
+        // Schema::build(static::$capsule, dirname(__DIR__) . "/Schema/users.json");
 	}
 
 	/**

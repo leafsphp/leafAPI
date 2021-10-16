@@ -52,13 +52,13 @@ Leaf\View::attach(\Leaf\Blade::class);
 
 /*
 |--------------------------------------------------------------------------
-| Initialise Leaf Core
+| Initialise Config
 |--------------------------------------------------------------------------
 |
-| Plant a seed, grow the stem and return Leaf🤷‍
+| Pass your application configuration into your leaf app.
 |
 */
-$app = new Leaf\App(AppConfig());
+Leaf\Config::set(AppConfig());
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +79,9 @@ Leaf\Core::paths(PathsConfig());
 | CORS errors at you.
 |
 */
-$app->evadeCors(false);
+app()->cors(CorsConfig());
+
+Leaf\Log::install();
 
 /*
 |--------------------------------------------------------------------------
@@ -109,4 +111,4 @@ require __DIR__ . "/App/Routes/index.php";
 | Require app routes
 |
 */
-$app->run();
+app()->run();

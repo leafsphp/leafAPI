@@ -19,7 +19,6 @@
         }
     ],
     "require": {
-        "leafs/leaf": "^2.6",
         "leafs/aloe": "^1.2",
         "doctrine/dbal": "^2.9",
         "illuminate/console": "^8.0",
@@ -27,7 +26,10 @@
         "symfony/console": "^5.1",
         "vlucas/phpdotenv": "^3.6",
         "leafs/blade": "^1.2",
-        "leafs/mvc-core": "^1.1"
+        "leafs/leaf": "dev-v3.x-dev",
+        "leafs/mvc-core": "^1.1",
+        "leafs/logger": "^1.0",
+        "leafs/cors": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",

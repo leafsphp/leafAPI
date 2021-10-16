@@ -1,7 +1,5 @@
 <?php
 
-/**@var Leaf\App $app */
-
 /*
 |--------------------------------------------------------------------------
 | Set up 404 handler
@@ -10,7 +8,7 @@
 | Create a handler for 404 errors
 |
 */
-$app->set404(function () {
+app()->set404(function () {
 	response()->json("Resource not found", 404, true);
 });
 
@@ -22,10 +20,10 @@ $app->set404(function () {
 | Create a handler for error 500
 |
 */
-$app->setErrorHandler(function ($e = null) use($app) {
+app()->setErrorHandler(function ($e = null) {
     if ($e) {
-        if ($app->config("log.enabled")) {
-            $app->logger()->error($e);
+        if (app()->config("log.enabled")) {
+            app()->logger()->error($e);
         }
     }
 
@@ -41,7 +39,7 @@ $app->setErrorHandler(function ($e = null) use($app) {
 | the controller namespace first.
 |
 */
-$app->setNamespace("\App\Controllers");
+app()->setNamespace("\App\Controllers");
 
 // You can break up routes into individual files
 require __DIR__ . "/_app.php";
