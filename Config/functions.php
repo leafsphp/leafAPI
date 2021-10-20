@@ -55,16 +55,6 @@ if (!function_exists('auth')) {
     }
 }
 
-if (!function_exists('d')) {
-    /**
-     * Return Leaf's date object
-     */
-    function d()
-    {
-        return app()->date;
-    }
-}
-
 if (!function_exists('dbRow')) {
     /**
      * Return a db row by it's id
@@ -105,23 +95,13 @@ if (!function_exists('email')) {
     }
 }
 
-if (!function_exists('fs')) {
-    /**
-     * Return Leaf's FS object
-     */
-    function fs()
-    {
-        return app()->fs;
-    }
-}
-
 if (!function_exists('flash')) {
     /**
      * Return Leaf's flash object
      */
     function flash()
     {
-        return \Leaf\Flash::class;
+        return new \Leaf\Flash;
     }
 }
 
