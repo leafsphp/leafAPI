@@ -17,7 +17,7 @@ class Controller extends \Leaf\ApiController
 		parent::__construct();
 
 		// In this version, request isn't initialised for you. You can use
-		// requestData() or request() to get request data or initialise it yourself
+		// request() to get request data or initialise it yourself
 
 		// autoConnect uses the .env variables to quickly connect to db
 		Auth::autoConnect();
@@ -28,6 +28,8 @@ class Controller extends \Leaf\ApiController
 		// You can configure auth to get additional customizations
 		// This can be done here with the Auth::config method or
 		// simply in the Config/auth.php file
+
+        // AuthConfig loads up the configuration done in Config/auth.php
 		Auth::config(AuthConfig());
 
 		// You can refer to https://leafphp.netlify.app/#/leaf/v/2.5/core/auth for auth docs

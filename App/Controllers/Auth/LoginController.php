@@ -16,14 +16,16 @@ class LoginController extends Controller
         // your own form rules
         Form::rule("max", function ($field, $value, $params) {
             if (strlen($value) > $params) {
+                // add error sets the error which will display when this rule fails
                 Form::addError($field, "$field can't be more than $params characters");
+                // a rule must return false when it's validation fails
                 return false;
             }
         });
 
         // You can also pass in custom parameters into your
         // form rules. The example below calls the max rule defined
-        // above, and replaces the $params variable with 10.
+        // above, and replaces the $params variable with 15.
         $validation = Form::validate([
             // To pass a param to a rule, just use :
             "username" => "max:15",

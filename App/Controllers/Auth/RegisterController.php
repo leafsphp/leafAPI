@@ -7,6 +7,7 @@ use Leaf\Form;
 
 class RegisterController extends Controller
 {
+    // read the login controller to understand what each feature does.
     public function store()
     {
         $credentials = request(["username", "email", "password"]);

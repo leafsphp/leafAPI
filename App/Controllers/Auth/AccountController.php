@@ -20,24 +20,11 @@ class AccountController extends Controller
     {
         $userId = Auth::id();
 
-        $data = request(["username", "email", "name"]);
-        $dataKeys = array_keys($data);
-
+        // request::try attempts to retrieve the data passed into it
+        // but unsets the data key if no value is found.
+        $data = request()->try(["username", "email", "name"]);
         $where = ["id" => $userId];
-
         $uniques = ["username", "email"];
-
-        // This part simply removes empty fields from request
-        foreach ($dataKeys as $key) {
-            if (!$data[$key]) {
-                unset($data[$key]);
-                continue;
-            }
-
-            if (!strlen($data[$key])) {
-                unset($data[$key]);
-            }
-        }
 
         // This section removes all uniques not found in request
         foreach ($uniques as $key => $unique) {
