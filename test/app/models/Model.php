@@ -1,8 +1,6 @@
 <?php
 namespace App\Models;
 
-new \Leaf\Database;
-
 /**
  * Base Model
  */

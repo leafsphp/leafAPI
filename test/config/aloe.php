@@ -1,4 +1,5 @@
 <?php
+
 // config for aloe CLI
 return [
     "paths" => [
