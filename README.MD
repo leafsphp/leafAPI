@@ -1,16 +1,14 @@
 <p align="center">
     <br><br>
-    <img src="https://leaf-docs.netlify.app/images/logo.png" height="100"/>
-    <h1 align="center">Leaf API v2</h1>
+    <img src="https://leafphp.dev/logo-circle.png" height="100"/>
     <br>
-    <br><br><br>
 </p>
 
-<!-- [![Latest Stable Version](https://poser.pugx.org/leafs/api/v/stable)](https://packagist.org/packages/leafs/api)
-[![Total Downloads](https://poser.pugx.org/leafs/api/downloads)](https://packagist.org/packages/leafs/api)
-[![License](https://poser.pugx.org/leafs/api/license)](https://packagist.org/packages/leafs/api) -->
-
 # Leaf API
+
+[![Latest Stable Version](https://poser.pugx.org/leafs/api/v/stable)](https://packagist.org/packages/leafs/api)
+[![Total Downloads](https://poser.pugx.org/leafs/api/downloads)](https://packagist.org/packages/leafs/api)
+[![License](https://poser.pugx.org/leafs/api/license)](https://packagist.org/packages/leafs/api)
 
 Leaf API is a minimal MVC wrapper built on top of Leaf PHP which allows you to build APIs with Leaf, faster and simpler than ever before.
 
@@ -30,28 +28,29 @@ This will start a new Leaf api project.
 
 ```bash
 C:.
-├───App
-│   ├───Console
-│   ├───Controllers
-│   ├───Database
-│   │   ├───Factories
-│   │   ├───Migrations
-│   │   └───Seeds
-│   ├───Helpers
-│   ├───Models
-│   ├───Routes
-│   └───Views
-├───Config
-│   └───Command
-├───Lib
-├───public
-├───storage
-│   ├───app
-│   │   └───public
-│   ├───framework
-│   │   └───views
-│   └───logs
-└───vendor
+├── app
+│   ├── console
+│   ├── controllers
+│   │   └── Auth
+│   ├── database
+│   │   ├── factories
+│   │   ├── migrations
+│   │   ├── schema
+│   │   └── seeds
+│   ├── helpers
+│   ├── models
+│   ├── routes
+│   └── views
+├── config
+├── lib
+├── public
+├── storage
+│   ├── app
+│   │   └── public
+│   ├── framework
+│   │   └── views
+│   └── logs
+└── vendor
 ```
 
 This directory structure is a blend of Ruby on Rails and Laravel
