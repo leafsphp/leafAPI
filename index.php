@@ -21,7 +21,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 |
 */
 try {
-    \Dotenv\Dotenv::create(__DIR__)->load();
+    \Dotenv\Dotenv::createUnsafeImmutable(__DIR__)->load();
 } catch (\Throwable $th) {
     trigger_error($th);
 }
