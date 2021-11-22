@@ -41,6 +41,7 @@
             "App\\": "app/",
             "Config\\": "config/",
             "App\\Http\\": "app/http/",
+            "App\\Jobs\\": "app/jobs/",
             "App\\Views\\": "app/views/",
             "App\\Utils\\": "app/utils/",
             "App\\Models\\": "app/models/",
@@ -52,8 +53,7 @@
             "App\\Controllers\\": "app/controllers/",
             "App\\Database\\Seeds\\": "app/database/Seeds/",
             "App\\Database\\Schema\\": "app/database/Schema/",
-            "App\\Database\\Factories\\": "app/database/factories/",
-            "App\\Database\\Migrations\\": "app/database/Migrations/"
+            "App\\Database\\Factories\\": "app/database/factories/"
         }
     },
     "config": {
