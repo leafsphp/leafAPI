@@ -3,6 +3,8 @@ namespace App\Controllers;
 
 // This is our model, we import it here to use it below
 use App\Models\User;
+use Leaf\Auth;
+use Leaf\Form;
 use Leaf\Helpers\Password;
 
 /**
@@ -39,7 +41,7 @@ class UsersController extends Controller
         // auth is initialised in the base controller
         // login allows us to sign a user in, and also generates
         // a jwt automatically
-        $user = $this->auth->login("users", [
+        $user = Auth::login("users", [
             "username" => $username,
             "password" => $password
         ]);
@@ -47,7 +49,7 @@ class UsersController extends Controller
         // password encoding has been configured in the base controller
 
         // This line catches any errors that MAY happen
-        if (!$user) response()->throwErr($this->auth->errors());
+        if (!$user) response()->throwErr(Auth::errors());
 
         // json is another global shortcut method
         // it's shorter than $this->json()
@@ -64,25 +66,25 @@ class UsersController extends Controller
         $credentials = request(["username", "email", "password"]);
 
         // You can validate your data with Leaf Form Validation
-        $validation = $this->form->validate([
+        $validation = Form::validate([
             "username" => "validUsername",
             "email" => "email",
             "password" => "required"
         ]);
 
         // Throws an error if there's an issue in validation
-        if (!$validation) response()->throwErr($this->form->errors());
+        if (!$validation) response()->throwErr(Form::errors());
 
         // Direct registration with Leaf Auth. Registers and initiates a
         // login, so you don't have to call login again, unless you want
         // to. The 3rd parameter makes sure that the same username
         // and email can't be registered multiple times
-        $user = $this->auth->register("users", $credentials, [
+        $user = Auth::register("users", $credentials, [
             "username", "email"
         ]);
 
         // throw an auth error if there's an issue
-        if (!$user) response()->throwErr($this->auth->errors());
+        if (!$user) response()->throwErr(Auth::errors());
 
         response($user);
     }
@@ -104,12 +106,12 @@ class UsersController extends Controller
         // Send an email to user with the new temporary password
         // email() is a global method that allows you to send a
         // quick email. Don't forget to configure your .env variables
-        email([
-            "subject" => "Your Password has been reset",
-            "body" => "This is your new password: $newPassword",
-            "recepient_email" => $user->email,
-            "sender_name" => "API Name",
-        ]);
+        // email([
+        //     "subject" => "Your Password has been reset",
+        //     "body" => "This is your new password: $newPassword",
+        //     "recepient_email" => $user->email,
+        //     "sender_name" => "API Name",
+        // ]);
 
         response()->json(["message" => "ok"]);
     }
@@ -119,7 +121,7 @@ class UsersController extends Controller
         // id retrieves the JWT from the headers, decodes it and returns
         // the user encoded into the token. If there's a problem with the token,
         // we can throw whatever error occurs. This means the user must be logged in.
-        $userId = $this->auth->id() ?? response()->throwErr($this->auth->errors());
+        $userId = Auth::id() ?? response()->throwErr(Auth::errors());
         $password = request("password");
 
         // Get the
@@ -131,8 +133,8 @@ class UsersController extends Controller
         $user->save();
 
         // login again to get new token
-        $user = $this->auth->login("users", ["id" => $userId]);
-        if (!$user) response()->throwErr($this->auth->errors());
+        $user = Auth::login("users", ["id" => $userId]);
+        if (!$user) response()->throwErr(Auth::errors());
 
         response()->json($user);
     }
@@ -143,15 +145,15 @@ class UsersController extends Controller
 
         // Make sure user is logged in
         // $auth->user() is new in v2.4 of leaf
-        $user = $this->auth->user("users", $hidden);
+        $user = Auth::user("users", $hidden);
 
-        response()->json($user ?? response()->throwErr($this->auth->errors()));
+        response()->json($user ?? response()->throwErr(Auth::errors()));
     }
 
     public function edit()
     {
         // auth->id returns the user id encoded into jwt by default
-        $userId = $this->auth->id() ?? response()->throwErr($this->auth->errors());
+        $userId = Auth::id() ?? response()->throwErr(Auth::errors());
 
         // data to update
         $data = request(["username", "email", "password"]);
@@ -162,8 +164,8 @@ class UsersController extends Controller
         // params which shouldn't already exist in db
         $uniques = ["username", "email"];
 
-        $user = $this->auth->update("users", $data, $where, $uniques);
+        $user = Auth::update("users", $data, $where, $uniques);
 
-        response()->json($user ?? response()->throwErr($this->auth->errors()));
+        response()->json($user ?? response()->throwErr(Auth::errors()));
     }
 }
