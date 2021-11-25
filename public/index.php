@@ -22,7 +22,7 @@ chdir(dirname(__DIR__));
 | loading of any our classes "manually". Feels great to relax.
 |
 */
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
