@@ -1,76 +1,98 @@
 <p align="center">
     <br><br>
     <img src="https://leafphp.dev/logo-circle.png" height="100"/>
-    <br>
+    <br><br>
 </p>
 
-# Leaf API
+# Leaf API 3 &lt;BETA&gt;
 
 [![Latest Stable Version](https://poser.pugx.org/leafs/api/v/stable)](https://packagist.org/packages/leafs/api)
 [![Total Downloads](https://poser.pugx.org/leafs/api/downloads)](https://packagist.org/packages/leafs/api)
 [![License](https://poser.pugx.org/leafs/api/license)](https://packagist.org/packages/leafs/api)
 
-Leaf API is a minimal MVC wrapper built on top of Leaf PHP which allows you to build APIs with Leaf, faster and simpler than ever before.
+Leaf API is a minimal API wrapper built on top of [Leaf PHP](https://leafphp.dev) which allows you to build APIs with Leaf, faster and simpler than ever before. Leaf API provides an simple and opinionated structure with a tons of functionality built in.
 
-v2 of leaf API packs in a ton of new features with enhanced usability for existing features. It also has better binding with other Leaf libraries as well as external libraries. Also since Leaf doesn't enforce particular systems like `Facades` in laravel, you can port in any valid PHP library and it should work fine.
+It is built on Leaf 3 which makes it even more lightweight and faster than earlier versions, but comes with a ton of upgrades and security fixes.
 
-## Installation
+## 📦 Installation
 
-It's recommended that you use [Composer](https://getcomposer.org/) to install Leaf.
+You can install Leaf API v3 with the [Leaf CLI](https://cli.leafphp.dev)
+
+```sh
+leaf create <project-name> --v3 --api
+```
+
+`<project-name>` is your project name
+
+You can also use [Composer](https://getcomposer.org/) to install Leaf API quickly.
 
 ```bash
 composer create-project leafs/api <project-name>
 ```
 
-This will start a new Leaf api project.
+This will start a new Leaf API app.
 
-## Basic Info
+## 🗂 Directory Structure
 
 ```bash
 C:.
-├── app
-│   ├── console
-│   ├── controllers
-│   │   └── Auth
-│   ├── database
-│   │   ├── factories
-│   │   ├── migrations
-│   │   ├── schema
-│   │   └── seeds
-│   ├── helpers
-│   ├── models
-│   ├── routes
-│   └── views
-├── config
-├── lib
-├── public
-├── storage
-│   ├── app
-│   │   └── public
-│   ├── framework
-│   │   └── views
-│   └── logs
-└── vendor
+├───app
+│   ├───console
+│   ├───controllers
+│   │   └───Auth
+│   ├───database
+│   │   ├───factories
+│   │   ├───migrations
+│   │   └───seeds
+│   ├───helpers
+│   ├───models
+│   ├───routes
+│   └───views
+├───config
+│   └───command
+├───public
+├───storage
+│   ├───app
+│   │   └───public
+│   ├───framework
+│   │   └───views
+│   └───logs
+└───vendor
 ```
 
 This directory structure is a blend of Ruby on Rails and Laravel
 
-To run your Leaf api application, use
+To run your Leaf API application, use
 
 ```bash
 php leaf serve
 ```
 
-## Learning LeafAPI
+## 📓 Learning Leaf API
 
-LeafAPI has a very easy to understand [documentation](https://leafphp.netlify.app/#/leaf-api/) which contains information on all operations in LeafAPI.
+Leaf API has a very easy to understand [documentation](https://api.leafphp.dev) which contains information on all operations in Leaf API.
 
-Since LeafAPI runs on Leaf, you can check out the Leaf PHP Framework documentation [here](https://leafphp.netlify.app).
+Since Leaf API runs on Leaf, you should check out the Leaf PHP Framework documentation [here](https://leafphp.dev).
 
-## License
+## 😇 Contributing
 
-The LeafAPI framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+We are glad to have you. All contributions are welcome! To get started, familiarize yourself with our [contribution guide](https://leafphp.dev/community/contributing.html) and you'll be ready to make your first pull request 🚀.
 
-## View LeafAPI's docs [here](https://leafphp.netlify.app/#/leaf-api/)
+To report a security vulnerability, you can reach out to [@mychidarko](https://twitter.com/mychidarko) or [@leafphp](https://twitter.com/leafphp) on twitter. We will coordinate the fix and eventually commit the solution in this project.
 
-## View Leaf's docs [here](https://leafphp.netlify.app)
+## 🤩 Sponsoring Leaf
+
+Your cash contributions go a long way to help us make Leaf even better for you. You can sponsor Leaf and any of our packages on [open collective](https://opencollective.com/leaf) or check the [contribution page](https://leafphp.dev/support/) for a list of ways to contribute.
+
+We will furthermore like to thank our existing supporters, we love you all ❤️
+
+## 📃 License
+
+The Leaf API framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Links
+
+- [Leaf Docs](https://leafphp.dev)
+- [Leaf API Docs](https://api.leafphp.dev)
+- [Leaf CLI Docs](https://cli.leafphp.dev)
+- [Aloe CLI Docs](https://leafphp.dev/aloe-cli/)
