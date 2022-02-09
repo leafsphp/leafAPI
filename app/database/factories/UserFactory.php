@@ -12,7 +12,7 @@ class UserFactory extends Factory
 
 	// You define your factory blueprint here
 	// It should return an associative array
-	public function definition()
+	public function definition(): array
 	{
 		return [
             'id' => $this->faker->unique()->numberBetween(0, 200),
