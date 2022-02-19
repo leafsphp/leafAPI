@@ -28,8 +28,5 @@ class Controller extends \Leaf\Controller
         Auth::config(AuthConfig());
 
         // You can refer to https://leafphp.dev/modules/auth for auth docs
-
-        // To use session instead of JWT, open up config/auth.php and set
-        // USE_SESSION to true
     }
 }
