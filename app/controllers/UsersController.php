@@ -3,7 +3,6 @@ namespace App\Controllers;
 
 // This is our model, we import it here to use it below
 use App\Models\User;
-use Leaf\Auth;
 use Leaf\Form;
 use Leaf\Helpers\Password;
 
@@ -27,49 +26,44 @@ class UsersController extends Controller
     public function login()
     {
         // From v2, you can also use request()
-        // You can directly get parameters like this:
-        // $password = request("password");
-        // If you want to, you can perform some operation on the request object
-        // $password = request()->get("password");
+        // $password = request()->get('password');
 
         // You can also mass assign particular fields from the request
-        list($username, $password) = request()->get(["username", "password"], true, true);
+        $credentials = request()->get(['username', 'password']);
 
         // You can perform operations on your model like this
-        $user = User::where("username", $username)->first();
+        $user = User::where('username', $credentials['username'])->first();
 
         // auth is initialised in the base controller
         // login allows us to sign a user in, and also generates
         // a jwt automatically
-        $user = Auth::login("users", [
-            "username" => $username,
-            "password" => $password
-        ]);
+        $user = auth()->login($credentials);
 
         // password encoding has been configured in the base controller
 
         // This line catches any errors that MAY happen
-        if (!$user) response()->throwErr(Auth::errors());
+        if (!$user) {
+            response()->throwErr(auth()->errors());
+        }
 
-        // json is another global shortcut method
-        // it's shorter than $this->json()
-        response($user);
+        // We can call json on the response global shortcut method
+        response()->json($user);
     }
 
     public function register()
     {
-        // $username = request("username");
-        // $email = request("email");
-        // $password = request("password");
+        // $username = request()->get('username');
+        // $email = request()->get('email');
+        // $password = request()->get('password');
 
         // You can also directly pick vars from the request object
-        $credentials = request(["username", "email", "password"]);
+        $credentials = request()->get(['username', 'email', 'password']);
 
         // You can validate your data with Leaf Form Validation
         $validation = Form::validate([
-            "username" => "validUsername",
-            "email" => "email",
-            "password" => "required"
+            'username' => 'validUsername',
+            'email' => 'email',
+            'password' => 'required'
         ]);
 
         // Throws an error if there's an issue in validation
@@ -79,22 +73,26 @@ class UsersController extends Controller
         // login, so you don't have to call login again, unless you want
         // to. The 3rd parameter makes sure that the same username
         // and email can't be registered multiple times
-        $user = Auth::register("users", $credentials, [
-            "username", "email"
+        $user = auth()->register($credentials, [
+            'username', 'email'
         ]);
 
         // throw an auth error if there's an issue
-        if (!$user) response()->throwErr(Auth::errors());
+        if (!$user) {
+            response()->throwErr(auth()->errors());
+        }
 
-        response($user);
+        response()->json($user);
     }
 
     public function recover_account()
     {
-        $username = request("email");
+        $username = request()->get('email');
+        $user = User::where('email', $username)->first() ?? null;
 
-        $user = User::where("email", $username)->first() ?? null;
-        if (!$user) response()->throwErr(["email" => "Email not found"]);
+        if (!$user) {
+            response()->throwErr(['email' => 'Email not found']);
+        }
 
         // Set a temporary random password and reset user password
         $newPassword = rand(00000000, 99999999);
@@ -104,16 +102,16 @@ class UsersController extends Controller
         $user->save();
 
         // Send an email to user with the new temporary password
-        // email() is a global method that allows you to send a
-        // quick email. Don't forget to configure your .env variables
+        // You can use any email service of your choice.
+
         // email([
-        //     "subject" => "Your Password has been reset",
-        //     "body" => "This is your new password: $newPassword",
-        //     "recepient_email" => $user->email,
-        //     "sender_name" => "API Name",
+        //     'subject' => 'Your Password has been reset',
+        //     'body' => 'This is your new password: $newPassword',
+        //     'recepient_email' => $user->email,
+        //     'sender_name' => 'API Name',
         // ]);
 
-        response()->json(["message" => "ok"]);
+        response()->json(['message' => 'ok']);
     }
 
     public function reset_password()
@@ -121,51 +119,51 @@ class UsersController extends Controller
         // id retrieves the JWT from the headers, decodes it and returns
         // the user encoded into the token. If there's a problem with the token,
         // we can throw whatever error occurs. This means the user must be logged in.
-        $userId = Auth::id() ?? response()->throwErr(Auth::errors());
-        $password = request("password");
+        $userId = auth()->id() ?? response()->throwErr(auth()->errors());
+        $password = request('password');
 
-        // Get the
+        // Get the current id
         $user = User::find($userId);
-        if (!$user) response()->throwErr(["user" => "User not found! Check somewhere..."]);
+
+        if (!$user) {
+            response()->throwErr(['user' => 'User not found! Check somewhere...']);
+        }
 
         // Change the user password
         $user->password = md5($password);
         $user->save();
 
         // login again to get new token
-        $user = Auth::login("users", ["id" => $userId]);
-        if (!$user) response()->throwErr(Auth::errors());
+        $user = auth()->login(['id' => $userId]);
+
+        if (!$user) {
+            response()->throwErr(auth()->errors());
+        }
 
         response()->json($user);
     }
 
     public function user() {
-        // fields to hide from user list
-        $hidden = ["id", "remember_token", "password"];
-
         // Make sure user is logged in
-        // $auth->user() is new in v2.4 of leaf
-        $user = Auth::user("users", $hidden);
+        // You can pass in an array of items to
+        // hide from the returned user
+        $user = auth()->user(['id', 'remember_token', 'password']);
 
-        response()->json($user ?? response()->throwErr(Auth::errors()));
+        response()->json($user ?? response()->throwErr(auth()->errors()));
     }
 
     public function edit()
     {
-        // auth->id returns the user id encoded into jwt by default
-        $userId = Auth::id() ?? response()->throwErr(Auth::errors());
-
         // data to update
-        $data = request(["username", "email", "password"]);
+        $data = request()->get(['username', 'email', 'password']);
 
-        // data to find user by
-        $where = ["id" => $userId];
+        // update in auth v2 gets the currently authenticated
+        // user from the request or session, hence, there's no
+        // longer the need to mnually validate the user
+        $user = auth()->update($data, [
+            'username', 'email'
+        ]);
 
-        // params which shouldn't already exist in db
-        $uniques = ["username", "email"];
-
-        $user = Auth::update("users", $data, $where, $uniques);
-
-        response()->json($user ?? response()->throwErr(Auth::errors()));
+        response()->json($user ?? response()->throwErr(auth()->errors()));
     }
 }
