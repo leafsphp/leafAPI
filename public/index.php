@@ -19,7 +19,7 @@ chdir(dirname(__DIR__));
 | Composer provides a convenient, automatically generated class loader
 | for our application. We just need to utilize it! We'll require it
 | into the script here so that we do not have to worry about the
-| loading of any our classes "manually". Feels great to relax.
+| loading of any our classes 'manually'. Feels great to relax.
 |
 */
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -117,7 +117,7 @@ Leaf\Database::config(DatabaseConfig());
 | Require app routes.
 |
 */
-require dirname(__DIR__) . "/App/Routes/index.php";
+require dirname(__DIR__) . '/App/Routes/index.php';
 
 /*
 |--------------------------------------------------------------------------
