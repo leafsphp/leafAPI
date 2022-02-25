@@ -43,4 +43,3 @@ app()->setNamespace("\App\Controllers");
 
 // You can break up routes into individual files
 require __DIR__ . "/_app.php";
-require __DIR__ . "/_auth.php";
