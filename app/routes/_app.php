@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\User;
-
 app()->get("/", function () {
     response(["message" => "Congrats!! You're on Leaf API"]);
 });
