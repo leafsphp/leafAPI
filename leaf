@@ -77,9 +77,7 @@ $console = new \Aloe\Console("Leaf API", "v3.0");
 | Add custom commands
 |
 */
-$console->register([
-    \App\Console\ExampleCommand::class
-]);
+$console->register(\App\Console\ExampleCommand::class);
 
 /*
 |--------------------------------------------------------------------------
