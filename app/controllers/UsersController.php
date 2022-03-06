@@ -53,15 +53,17 @@ class UsersController extends Controller
     public function register()
     {
         // $username = request()->get('username');
+        // $fullname = request()->get('fullname');
         // $email = request()->get('email');
         // $password = request()->get('password');
 
         // You can also directly pick vars from the request object
-        $credentials = request()->get(['username', 'email', 'password']);
+        $credentials = request()->get(['fullname', 'username', 'email', 'password']);
 
         // You can validate your data with Leaf Form Validation
         $validation = Form::validate([
             'username' => 'validUsername',
+            'fullname' => 'required',
             'email' => 'email',
             'password' => 'required'
         ]);
@@ -120,7 +122,7 @@ class UsersController extends Controller
         // the user encoded into the token. If there's a problem with the token,
         // we can throw whatever error occurs. This means the user must be logged in.
         $userId = auth()->id() ?? response()->throwErr(auth()->errors());
-        $password = request('password');
+        $password = request()->get('password');
 
         // Get the current id
         $user = User::find($userId);
