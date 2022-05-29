@@ -17,7 +17,8 @@ class Controller extends \Leaf\Controller
         // requestData() or request() to get request data or initialise it yourself
 
         // autoConnect uses the .env variables to quickly connect to db
-        auth()->autoConnect();
+        // Leaf auth will automagically connect to this db instance
+        db()->autoConnect();
 
         // You can configure auth to get additional customizations
         // This can be done here with the auth()->config method or
