@@ -17,7 +17,8 @@ use Leaf\Helpers\Password;
  * you can switch to those as you see fit.
  *
  * Although a demo, it's a real controller and works correctly as is.
- * You can continue your project like this or edit it to match your app.
+ * You can always delete this controller or link it to a route if you wish
+ * to use it as a reference.
  */
 class UsersController extends Controller
 {
@@ -25,9 +26,6 @@ class UsersController extends Controller
     // and auth settings
     public function login()
     {
-        // From v2, you can also use request()
-        // $password = request()->get('password');
-
         // You can also mass assign particular fields from the request
         $credentials = request()->get(['username', 'password']);
 
@@ -43,7 +41,7 @@ class UsersController extends Controller
 
         // This line catches any errors that MAY happen
         if (!$user) {
-            response()->throwErr(auth()->errors());
+            response()->exit(auth()->errors());
         }
 
         // We can call json on the response global shortcut method
@@ -69,7 +67,7 @@ class UsersController extends Controller
         ]);
 
         // Throws an error if there's an issue in validation
-        if (!$validation) response()->throwErr(Form::errors());
+        if (!$validation) response()->exit(Form::errors());
 
         // Direct registration with Leaf Auth. Registers and initiates a
         // login, so you don't have to call login again, unless you want
@@ -81,7 +79,7 @@ class UsersController extends Controller
 
         // throw an auth error if there's an issue
         if (!$user) {
-            response()->throwErr(auth()->errors());
+            response()->exit(auth()->errors());
         }
 
         response()->json($user);
@@ -93,7 +91,7 @@ class UsersController extends Controller
         $user = User::where('email', $username)->first() ?? null;
 
         if (!$user) {
-            response()->throwErr(['email' => 'Email not found']);
+            response()->exit(['email' => 'Email not found']);
         }
 
         // Set a temporary random password and reset user password
@@ -121,14 +119,14 @@ class UsersController extends Controller
         // id retrieves the JWT from the headers, decodes it and returns
         // the user encoded into the token. If there's a problem with the token,
         // we can throw whatever error occurs. This means the user must be logged in.
-        $userId = auth()->id() ?? response()->throwErr(auth()->errors());
+        $userId = auth()->id() ?? response()->exit(auth()->errors());
         $password = request()->get('password');
 
         // Get the current id
         $user = User::find($userId);
 
         if (!$user) {
-            response()->throwErr(['user' => 'User not found! Check somewhere...']);
+            response()->exit(['user' => 'User not found! Check somewhere...']);
         }
 
         // Change the user password
@@ -139,7 +137,7 @@ class UsersController extends Controller
         $user = auth()->login(['id' => $userId]);
 
         if (!$user) {
-            response()->throwErr(auth()->errors());
+            response()->exit(auth()->errors());
         }
 
         response()->json($user);
@@ -151,7 +149,7 @@ class UsersController extends Controller
         // hide from the returned user
         $user = auth()->user(['id', 'remember_token', 'password']);
 
-        response()->json($user ?? response()->throwErr(auth()->errors()));
+        response()->json($user ?? response()->exit(auth()->errors()));
     }
 
     public function edit()
@@ -166,6 +164,6 @@ class UsersController extends Controller
             'username', 'email'
         ]);
 
-        response()->json($user ?? response()->throwErr(auth()->errors()));
+        response()->json($user ?? response()->exit(auth()->errors()));
     }
 }
