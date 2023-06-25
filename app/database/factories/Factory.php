@@ -2,7 +2,6 @@
 
 namespace App\Database\Factories;
 
-use Faker\Generator;
 use Leaf\Factory as Base;
 use Illuminate\Support\Str;
 
@@ -15,7 +14,8 @@ use Illuminate\Support\Str;
 class Factory extends Base
 {
     public $str;
-    /**@var Generator $faker*/
+
+    /**@var \Faker\Generator $faker*/
     public $faker;
 
     public function __construct()
@@ -26,4 +26,3 @@ class Factory extends Base
         $this->faker = \Faker\Factory::create();
     }
 }
-
