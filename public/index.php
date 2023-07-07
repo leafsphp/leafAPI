@@ -19,7 +19,7 @@ chdir(dirname(__DIR__));
 | Composer provides a convenient, automatically generated class loader
 | for our application. We just need to utilize it! We'll require it
 | into the script here so that we do not have to worry about the
-| loading of any our classes 'manually'. Feels great to relax.
+| loading of any our classes "manually". Feels great to relax.
 |
 */
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -37,18 +37,6 @@ try {
 } catch (\Throwable $th) {
     trigger_error($th);
 }
-
-/*
-|--------------------------------------------------------------------------
-| Attach blade view
-|--------------------------------------------------------------------------
-|
-| Since blade no longer ships with Leaf by default, we
-| can attach blade back to Leaf so you can use Leaf MVC
-| as you've always used it.
-|
-*/
-Leaf\View::attach(\Leaf\Blade::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -70,23 +58,28 @@ if (php_sapi_name() === 'cli-server') {
 
 /*
 |--------------------------------------------------------------------------
-| Load application paths
+| Attach blade view
 |--------------------------------------------------------------------------
 |
-| Tell Leaf MVC Core where to locate application paths
+| Since blade no longer ships with Leaf by default, we
+| can attach blade back to Leaf so you can use Leaf MVC
+| as you've always used it.
 |
 */
-Leaf\Core::paths(PathsConfig());
+Leaf\View::attach(\Leaf\Blade::class);
 
 /*
 |--------------------------------------------------------------------------
-| Additional Leaf Database Config
+| Load Leaf configuration
 |--------------------------------------------------------------------------
 |
-| Load leaf database configuration
+| Leaf MVC allows you to customize Leaf and it's modules using
+| configuration files defined in the config folder. This line
+| loads the configuration files and makes them available to
+| your application.
 |
 */
-Leaf\Database::config(DatabaseConfig());
+Leaf\Core::loadApplicationConfig();
 
 /*
 |--------------------------------------------------------------------------
@@ -97,32 +90,12 @@ Leaf\Database::config(DatabaseConfig());
 | This allows you to use Leaf Db without having to initialize it
 | in your controllers.
 |
-| This is optional, you can still use Leaf Db in your controllers. If you
-| want to opt into this, just uncomment the line below.
+| This is optional, you can still use your own Leaf Db connections in
+| your controllers. If you want to opt into this,
+| just uncomment the line below.
 |
 */
 // Leaf\Database::syncLeafDb();
-
-/*
-|--------------------------------------------------------------------------
-| Initialise Config
-|--------------------------------------------------------------------------
-|
-| Pass your application configuration into your leaf app.
-|
-*/
-app()->config(AppConfig());
-
-/*
-|--------------------------------------------------------------------------
-| Default fix for CORS
-|--------------------------------------------------------------------------
-|
-| This just prevents the connection client from throwing
-| CORS errors at you.
-|
-*/
-app()->cors(CorsConfig());
 
 /*
 |--------------------------------------------------------------------------
