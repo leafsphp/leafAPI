@@ -15,7 +15,7 @@ class CreateUsers extends Database
     {
         // if (!static::$capsule::schema()->hasTable("users")):
         // 	static::$capsule::schema()->create("users", function (Blueprint $table) {
-        //      $table->increments('id');
+        //         $table->increments('id');
         // 		$table->string('username');
         // 		$table->string('fullname');
         // 		$table->string('email')->unique();
@@ -26,8 +26,8 @@ class CreateUsers extends Database
         // 	});
         // endif;
 
-        // you can now build your migrations with schemas [EXPERIMENTAL]
-        Schema::build(static::$capsule, dirname(__DIR__) . "/Schema/users.json");
+        // you can now build your migrations with schemas
+        Schema::build('users');
     }
 
     /**
@@ -37,6 +37,6 @@ class CreateUsers extends Database
      */
     public function down()
     {
-        static::$capsule::schema()->dropIfExists("users");
+        static::$capsule::schema()->dropIfExists('users');
     }
 }
