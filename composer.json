@@ -20,10 +20,10 @@
         }
     ],
     "require": {
-        "leafs/aloe": "*",
+        "leafs/aloe": "dev-master",
         "illuminate/console": "^8.75",
         "leafs/blade": "*",
-        "leafs/mvc-core": "*",
+        "leafs/mvc-core": "dev-main",
         "leafs/leaf": "^3.3",
         "leafs/logger": "*",
         "leafs/cors": "*",
@@ -37,18 +37,26 @@
         "psr-4": {
             "Lib\\": "lib/",
             "App\\": "app/",
+            "Tests\\": "tests/",
             "Config\\": "config/",
             "App\\Http\\": "app/http/",
             "App\\Jobs\\": "app/jobs/",
+            "App\\Lang\\": "app/lang/",
+            "App\\Mail\\": "app/mail/",
             "App\\Views\\": "app/views/",
             "App\\Utils\\": "app/utils/",
+            "App\\Events\\": "app/events/",
             "App\\Models\\": "app/models/",
             "App\\Workers\\": "app/workers/",
             "App\\Console\\": "app/console/",
             "App\\Scripts\\": "app/scripts/",
             "App\\Helpers\\": "app/helpers/",
+            "App\\Channels\\": "app/channels/",
             "App\\Services\\": "app/services/",
+            "App\\Middleware\\": "app/middleware/",
+            "App\\Components\\": "app/components/",
             "App\\Controllers\\": "app/controllers/",
+            "App\\Notifications\\": "app/notifications/",
             "App\\Database\\Seeds\\": "app/database/seeds/",
             "App\\Database\\Schema\\": "app/database/schema/",
             "App\\Database\\Factories\\": "app/database/factories/"
@@ -56,12 +64,18 @@
     },
     "config": {
         "optimize-autoloader": true,
-        "sort-packages": false
+        "sort-packages": false,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "scripts": {
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php -r \"unlink('README.MD'); rename('README2.MD', 'README.MD');\""
+        ],
+        "post-create-project-cmd": [
+            "@php leaf key:generate"
         ]
     },
     "minimum-stability": "dev",
