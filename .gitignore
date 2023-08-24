@@ -1,9 +1,12 @@
-vendor
-vendor2
 .env
-node_modules
+.env.backup
+.env.production
 build
 dist
 compiled
 .idea
-*.lock
+hot
+vendor
+node_modules
+npm-debug.log
+yarn-error.log
